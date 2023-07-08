@@ -1,4 +1,4 @@
-package com.northious.a2step
+package org.getbuddies.a2step
 
 import org.junit.Test
 

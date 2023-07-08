@@ -1,4 +1,4 @@
-package com.northious.a2step.totp
+package org.getbuddies.a2step.totp
 
 import java.security.GeneralSecurityException
 import javax.crypto.Mac

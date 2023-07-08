@@ -1,4 +1,4 @@
-package com.northious.a2step.totp
+package org.getbuddies.a2step.totp
 
 class Base32String constructor(alphabet: String) {
     private val MASK: Int

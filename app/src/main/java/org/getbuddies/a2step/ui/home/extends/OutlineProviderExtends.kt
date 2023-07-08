@@ -1,4 +1,4 @@
-package com.northious.a2step.ui.home.extends
+package org.getbuddies.a2step.ui.home.extends
 
 import android.view.View
 import android.view.ViewOutlineProvider

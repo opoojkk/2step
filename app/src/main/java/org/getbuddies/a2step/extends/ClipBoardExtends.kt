@@ -1,4 +1,4 @@
-package com.northious.a2step.extends
+package org.getbuddies.a2step.extends
 
 import android.content.ClipData
 import android.content.ClipboardManager

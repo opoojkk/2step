@@ -1,18 +1,14 @@
-package com.northious.a2step.ui.home
+package org.getbuddies.a2step.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.leinardi.android.speeddial.SpeedDialActionItem
-import com.northious.a2step.R
-import com.northious.a2step.databinding.ActivityMainBinding
-import com.northious.a2step.ui.AddTotpActivity
-import com.northious.a2step.ui.home.adapter.TotpDelegate
-import com.northious.a2step.ui.home.bean.Totp
+import org.getbuddies.a2step.databinding.ActivityMainBinding
+import org.getbuddies.a2step.ui.AddTotpActivity
+import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
+import org.getbuddies.a2step.db.totp.entity.Totp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding

@@ -1,4 +1,4 @@
-package com.northious.a2step.ui
+package org.getbuddies.a2step.ui
 
 import android.Manifest
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import com.northious.a2step.databinding.ActivityAddTotpBinding
+import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
+import org.getbuddies.a2step.db.DataBases
+import org.getbuddies.a2step.db.totp.TotpDataBase
 import com.permissionx.guolindev.PermissionX
 import com.permissionx.guolindev.callback.RequestCallback
 
@@ -54,7 +56,7 @@ class AddTotpActivity : AppCompatActivity() {
     }
 
     private fun initSecretEditText() {
-        mBinding.secretEditText.setOnEditorActionListener { _, actionId, _ ->
+        mBinding.secretEditText.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
 
                 return@setOnEditorActionListener true
