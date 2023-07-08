@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">2step</string>
+    <string name="hint_secret_input">输入设置秘钥</string>
 </resources>

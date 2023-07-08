@@ -1,5 +1,6 @@
 package com.northious.a2step.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.northious.a2step.R
 import com.northious.a2step.databinding.ActivityMainBinding
+import com.northious.a2step.ui.AddTotpActivity
 import com.northious.a2step.ui.home.adapter.TotpDelegate
 import com.northious.a2step.ui.home.bean.Totp
 
@@ -38,15 +40,12 @@ class MainActivity : AppCompatActivity() {
         )
         mBinding.totpRecyclerView.adapter = adapter
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemInserted(0)
     }
 
     private fun initFab() {
-        val speedDialView = mBinding.speedDial
-        val id = View.generateViewId()
-        speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(id, R.drawable.add).setLabel("Add").create()
-        )
+        mBinding.addTotpFab.setOnClickListener {
+            startActivity(Intent(this, AddTotpActivity::class.java))
+        }
     }
 }

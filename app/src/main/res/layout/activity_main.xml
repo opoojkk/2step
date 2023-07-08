@@ -29,6 +29,16 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
+        android:visibility="gone"
         app:sdMainFabClosedSrc="@drawable/add"
         app:sdMainFabOpenedSrc="@drawable/add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_totp_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
