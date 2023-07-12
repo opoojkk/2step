@@ -2,18 +2,24 @@ package org.getbuddies.a2step.ui
 
 import android.Manifest
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
-import org.getbuddies.a2step.db.DataBases
-import org.getbuddies.a2step.db.totp.TotpDataBase
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.permissionx.guolindev.PermissionX
-import com.permissionx.guolindev.callback.RequestCallback
+import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
 
 class AddTotpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityAddTotpBinding
+    private val bottomSheetBehavior: BottomSheetBehavior<LinearLayout> by lazy {
+        initBottomSheetBehavior()
+    }
+
+    private val mZXingView: QRCodeView by lazy { mBinding.zxingview }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityAddTotpBinding.inflate(layoutInflater)
@@ -41,6 +47,9 @@ class AddTotpActivity : AppCompatActivity() {
             }
 
         })
+        mBinding.zxingview.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
         requestCameraPermission()
     }
 
@@ -48,7 +57,7 @@ class AddTotpActivity : AppCompatActivity() {
         PermissionX.init(this).permissions(Manifest.permission.CAMERA)
             .request { allGranted, _, deniedList ->
                 if (allGranted) {
-                    mBinding.zxingview.startSpot()
+                    mZXingView.startSpot()
                 } else {
                     Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
                 }
@@ -58,10 +67,36 @@ class AddTotpActivity : AppCompatActivity() {
     private fun initSecretEditText() {
         mBinding.secretEditText.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
-
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
+        }
+    }
+
+    private fun initBottomSheetBehavior(): BottomSheetBehavior<LinearLayout> {
+        return BottomSheetBehavior.from(mBinding.bottomSheet).apply {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    when (newState) {
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+                            mZXingView.stopCamera()
+                            mZXingView.stopSpot()
+                        }
+
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                            mZXingView.startCamera()
+                            mZXingView.startSpot()
+                        }
+
+                        else -> {}
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                }
+            })
         }
     }
 }

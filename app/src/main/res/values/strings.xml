@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">2step</string>
     <string name="hint_secret_input">输入设置秘钥</string>
+    <string name="hint_totp_name_input">输入设置秘钥</string>
+    <string name="hint_totp_account_input">输入设置秘钥</string>
+    <string name="text_add_totp_submit">提交</string>
 </resources>
