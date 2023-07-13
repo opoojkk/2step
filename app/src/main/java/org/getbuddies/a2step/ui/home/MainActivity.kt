@@ -3,6 +3,7 @@ package org.getbuddies.a2step.ui.home
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import org.getbuddies.a2step.databinding.ActivityMainBinding
@@ -12,11 +13,13 @@ import org.getbuddies.a2step.db.totp.entity.Totp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mMainViewModel: MainViewModel
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initViewModel()
         initViews()
     }
 
@@ -25,18 +28,23 @@ class MainActivity : AppCompatActivity() {
         initFab()
     }
 
+    private fun initViewModel() {
+        mMainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mMainViewModel.totpListLiveData.observe(this) {
+            updateRecyclerView(it)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
     private fun initRecyclerView() {
         adapter.register(Totp::class.java, TotpDelegate())
-        adapter.items = listOf(
-            Totp(
-                "Google",
-                "gotcha1874@gmail.com",
-                "TVOFVGUHCDU4HD4GFVRAIFFASDQFUGXKOLSVQEC7TQINV4JFESNUSB7KG7ENH64UQXMP7GQ77Y5KNQ63AJ6PGVHZXI34LR47LQTN6JQ"
-            )
-        )
+        adapter.items = mMainViewModel.totpListLiveData.value ?: emptyList()
         mBinding.totpRecyclerView.adapter = adapter
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.notifyItemInserted(0)
+    }
+
+    private fun updateRecyclerView(totps: List<Totp>) {
+        adapter.items = totps
     }
 
     private fun initFab() {

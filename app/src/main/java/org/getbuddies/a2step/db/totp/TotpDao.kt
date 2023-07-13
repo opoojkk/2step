@@ -1,5 +1,6 @@
 package org.getbuddies.a2step.db.totp
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,7 +10,7 @@ import org.getbuddies.a2step.db.totp.entity.Totp
 @Dao
 interface TotpDao {
     @Query("SELECT * FROM totp_db")
-    fun getAll(): List<Totp>
+    fun getAll(): LiveData<List<Totp>>
 
     @Insert(entity = Totp::class)
     fun insert(totp: Totp)
