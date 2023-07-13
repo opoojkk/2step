@@ -22,6 +22,7 @@ import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
 import org.getbuddies.a2step.db.DataBases
 import org.getbuddies.a2step.db.totp.TotpDataBase
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.home.MainActivity
 
 class AddTotpActivity : AppCompatActivity() {
@@ -86,7 +87,12 @@ class AddTotpActivity : AppCompatActivity() {
                     Toast.makeText(this, "请输入密钥", Toast.LENGTH_SHORT).show()
                     return@setOnEditorActionListener true
                 }
-
+                try {
+                    TotpGenerator.generateNow(mSecret)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "密钥格式错误", Toast.LENGTH_SHORT).show()
+                    return@setOnEditorActionListener true
+                }
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 return@setOnEditorActionListener true
             }
