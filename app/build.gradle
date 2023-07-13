@@ -62,4 +62,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     // To use Kotlin Symbol Processing (KSP)
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 }

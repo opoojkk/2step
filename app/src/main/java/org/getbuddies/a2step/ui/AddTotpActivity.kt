@@ -1,16 +1,28 @@
 package org.getbuddies.a2step.ui
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.permissionx.guolindev.PermissionX
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
+import org.getbuddies.a2step.db.DataBases
+import org.getbuddies.a2step.db.totp.TotpDataBase
+import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.ui.home.MainActivity
 
 class AddTotpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityAddTotpBinding
@@ -19,6 +31,7 @@ class AddTotpActivity : AppCompatActivity() {
     }
 
     private val mZXingView: QRCodeView by lazy { mBinding.zxingview }
+    private lateinit var mSecret: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +43,7 @@ class AddTotpActivity : AppCompatActivity() {
     private fun initViews() {
         initZxingView()
         initSecretEditText()
+        initAddButton()
     }
 
     private fun initZxingView() {
@@ -67,10 +81,38 @@ class AddTotpActivity : AppCompatActivity() {
     private fun initSecretEditText() {
         mBinding.secretEditText.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                mSecret = v.text.toString()
+                if (mSecret.isEmpty()) {
+                    Toast.makeText(this, "请输入密钥", Toast.LENGTH_SHORT).show()
+                    return@setOnEditorActionListener true
+                }
+
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
+        }
+    }
+
+    private fun initAddButton() {
+        mBinding.submitButton.setOnClickListener {
+            val accountName = mBinding.totpNameEditText.text.toString()
+            if (accountName.isEmpty()) {
+                Toast.makeText(this, "请输入账号名称", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val account = mBinding.totpAccountEditText.text.toString()
+            if (account.isEmpty()) {
+                Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            lifecycleScope.launch {
+                launch(Dispatchers.IO) {
+                    DataBases.get(TotpDataBase::class.java).add(Totp(accountName, account, mSecret))
+                }
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                startActivity(Intent(this@AddTotpActivity, MainActivity::class.java))
+            }
         }
     }
 
