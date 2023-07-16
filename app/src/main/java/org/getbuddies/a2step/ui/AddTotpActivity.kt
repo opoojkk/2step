@@ -1,6 +1,7 @@
 package org.getbuddies.a2step.ui
 
 import android.Manifest
+import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +23,7 @@ import org.getbuddies.a2step.db.totp.TotpDataBase
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.home.MainActivity
+
 
 class AddTotpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityAddTotpBinding

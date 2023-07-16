@@ -2,10 +2,17 @@ package org.getbuddies.a2step.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
+import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.ui.AddTotpActivity
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
@@ -15,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mMainViewModel: MainViewModel
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
+    private val speedDialView: SpeedDialView by lazy { mBinding.speedDial }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -26,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         initRecyclerView()
         initFab()
+        initDialView()
     }
 
     private fun initViewModel() {
@@ -51,5 +60,28 @@ class MainActivity : AppCompatActivity() {
         mBinding.addTotpFab.setOnClickListener {
             startActivity(Intent(this, AddTotpActivity::class.java))
         }
+    }
+
+
+    private fun initDialView() {
+        speedDialView.findViewById<FloatingActionButton>(com.leinardi.android.speeddial.R.id.sd_main_fab)
+            .updateLayoutParams<LinearLayout.LayoutParams> {
+                topMargin = 0
+                bottomMargin = 0
+                leftMargin = 0
+                rightMargin = 0
+            }
+        // 添加子菜单
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(View.generateViewId(), R.drawable.add)
+                .setLabel(R.string.label_input_scan)
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(View.generateViewId(), R.drawable.add)
+                .setLabel(R.string.label_input_manual)
+                .create()
+        )
+
     }
 }
