@@ -8,15 +8,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
 import org.getbuddies.a2step.db.DataBases
