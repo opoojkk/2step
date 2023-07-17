@@ -20,7 +20,7 @@ import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mMainViewModel: MainViewModel
+    private lateinit var mTotpViewModel: TotpViewModel
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
     private val speedDialView: SpeedDialView by lazy { mBinding.speedDial }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        mMainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        mMainViewModel.totpListLiveData.observe(this) {
+        mTotpViewModel = ViewModelProvider(this)[TotpViewModel::class.java]
+        mTotpViewModel.totpListLiveData.observe(this) {
             updateRecyclerView(it)
             adapter.notifyDataSetChanged()
         }
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         adapter.register(Totp::class.java, TotpDelegate())
-        adapter.items = mMainViewModel.totpListLiveData.value ?: emptyList()
+        adapter.items = mTotpViewModel.totpListLiveData.value ?: emptyList()
         mBinding.totpRecyclerView.adapter = adapter
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
     }

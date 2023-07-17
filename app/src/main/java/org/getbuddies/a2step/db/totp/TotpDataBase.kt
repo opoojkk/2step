@@ -13,7 +13,7 @@ abstract class TotpDataBase : RoomDatabase() {
         return totpDao().getAll()
     }
 
-    fun add(totp: Totp) {
+    fun insert(totp: Totp) {
         totpDao().insert(totp)
     }
 
