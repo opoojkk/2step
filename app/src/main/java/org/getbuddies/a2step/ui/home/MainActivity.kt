@@ -2,7 +2,6 @@ package org.getbuddies.a2step.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
@@ -73,12 +72,12 @@ class MainActivity : AppCompatActivity() {
             }
         // 添加子菜单
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.add)
+            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.icon_input_manual)
                 .setLabel(R.string.label_input_manual)
                 .create()
         )
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(R.id.fab_input_manual, R.drawable.add)
+            SpeedDialActionItem.Builder(R.id.fab_input_manual, R.drawable.icon_input_scan)
                 .setLabel(R.string.label_input_scan)
                 .create()
         )
