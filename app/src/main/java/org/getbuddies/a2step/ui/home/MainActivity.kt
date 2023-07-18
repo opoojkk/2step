@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         // 添加子菜单
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.icon_input_manual)
+            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.icon_input_keybroad)
                 .setLabel(R.string.label_input_manual)
                 .create()
         )
