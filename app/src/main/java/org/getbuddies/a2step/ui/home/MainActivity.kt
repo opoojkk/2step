@@ -73,15 +73,26 @@ class MainActivity : AppCompatActivity() {
             }
         // 添加子菜单
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(View.generateViewId(), R.drawable.add)
-                .setLabel(R.string.label_input_scan)
-                .create()
-        )
-        speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(View.generateViewId(), R.drawable.add)
+            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.add)
                 .setLabel(R.string.label_input_manual)
                 .create()
         )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(R.id.fab_input_manual, R.drawable.add)
+                .setLabel(R.string.label_input_scan)
+                .create()
+        )
+        speedDialView.setOnActionSelectedListener { actionItem ->
+            when (actionItem.id) {
+                R.id.fab_input_scan -> {
+                    startActivity(Intent(this, AddTotpActivity::class.java))
+                }
 
+                R.id.fab_input_manual -> {
+                    startActivity(Intent(this, AddTotpActivity::class.java))
+                }
+            }
+            false
+        }
     }
 }
