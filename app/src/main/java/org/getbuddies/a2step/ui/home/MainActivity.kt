@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         initRecyclerView()
-        initFab()
         initDialView()
     }
 
@@ -54,13 +53,6 @@ class MainActivity : AppCompatActivity() {
     private fun updateRecyclerView(totps: List<Totp>) {
         adapter.items = totps
     }
-
-    private fun initFab() {
-        mBinding.addTotpFab.setOnClickListener {
-            startActivity(Intent(this, AddTotpActivity::class.java))
-        }
-    }
-
 
     private fun initDialView() {
         speedDialView.findViewById<FloatingActionButton>(com.leinardi.android.speeddial.R.id.sd_main_fab)

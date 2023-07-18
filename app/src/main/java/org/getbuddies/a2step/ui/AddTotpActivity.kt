@@ -26,10 +26,6 @@ import org.getbuddies.a2step.ui.home.TotpViewModel
 
 class AddTotpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityAddTotpBinding
-    private val bottomSheetBehavior: BottomSheetBehavior<LinearLayout> by lazy {
-        initBottomSheetBehavior()
-    }
-
     private val mZXingView: QRCodeView by lazy { mBinding.zxingview }
     private lateinit var mSecret: String
 
@@ -42,8 +38,6 @@ class AddTotpActivity : AppCompatActivity() {
 
     private fun initViews() {
         initZxingView()
-        initSecretEditText()
-        initAddButton()
     }
 
     private fun initZxingView() {
@@ -62,7 +56,6 @@ class AddTotpActivity : AppCompatActivity() {
 
         })
         mBinding.zxingview.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
         requestCameraPermission()
     }
@@ -76,76 +69,5 @@ class AddTotpActivity : AppCompatActivity() {
                     Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-    private fun initSecretEditText() {
-        mBinding.secretEditText.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                mSecret = v.text.toString()
-                if (mSecret.isEmpty()) {
-                    Toast.makeText(this, "请输入密钥", Toast.LENGTH_SHORT).show()
-                    return@setOnEditorActionListener true
-                }
-                try {
-                    TotpGenerator.generateNow(mSecret)
-                } catch (e: Exception) {
-                    Toast.makeText(this, "密钥格式错误", Toast.LENGTH_SHORT).show()
-                    return@setOnEditorActionListener true
-                }
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        }
-    }
-
-    private fun initAddButton() {
-        mBinding.submitButton.setOnClickListener {
-            val accountName = mBinding.totpNameEditText.text.toString()
-            if (accountName.isEmpty()) {
-                Toast.makeText(this, "请输入账号名称", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            val account = mBinding.totpAccountEditText.text.toString()
-            if (account.isEmpty()) {
-                Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            lifecycleScope.launch {
-                launch(Dispatchers.IO) {
-                    ViewModelProvider(this@AddTotpActivity)[TotpViewModel::class.java]
-                        .insert(Totp(accountName, account, mSecret))
-
-                }
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                startActivity(Intent(this@AddTotpActivity, MainActivity::class.java))
-            }
-        }
-    }
-
-    private fun initBottomSheetBehavior(): BottomSheetBehavior<LinearLayout> {
-        return BottomSheetBehavior.from(mBinding.bottomSheet).apply {
-            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_EXPANDED -> {
-                            mZXingView.stopCamera()
-                            mZXingView.stopSpot()
-                        }
-
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                            mZXingView.startCamera()
-                            mZXingView.startSpot()
-                        }
-
-                        else -> {}
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                }
-            })
-        }
     }
 }

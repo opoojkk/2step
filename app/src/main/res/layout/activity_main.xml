@@ -22,16 +22,6 @@
             tools:listitem="@layout/layout_totp_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_totp_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp"
-        android:src="@drawable/add"
-        android:visibility="gone" />
-
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/speedDial"
         android:layout_width="wrap_content"
