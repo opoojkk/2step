@@ -1,37 +1,21 @@
-package org.getbuddies.a2step.ui
+package org.getbuddies.a2step.ui.totp
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.permissionx.guolindev.PermissionX
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.getbuddies.a2step.databinding.ActivityAddTotpBinding
-import org.getbuddies.a2step.db.DataBases
-import org.getbuddies.a2step.db.totp.TotpDataBase
-import org.getbuddies.a2step.db.totp.entity.Totp
-import org.getbuddies.a2step.totp.TotpGenerator
-import org.getbuddies.a2step.ui.home.MainActivity
-import org.getbuddies.a2step.ui.home.TotpViewModel
+import org.getbuddies.a2step.databinding.ActivityScanTotpBinding
 
 
-class AddTotpActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityAddTotpBinding
+class ScanTotpActivity : AppCompatActivity() {
+    private lateinit var mBinding: ActivityScanTotpBinding
     private val mZXingView: QRCodeView by lazy { mBinding.zxingview }
-    private lateinit var mSecret: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityAddTotpBinding.inflate(layoutInflater)
+        mBinding = ActivityScanTotpBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         initViews()
     }
@@ -43,7 +27,8 @@ class AddTotpActivity : AppCompatActivity() {
     private fun initZxingView() {
         mBinding.zxingview.setDelegate(object : QRCodeView.Delegate {
             override fun onScanQRCodeSuccess(result: String?) {
-                Toast.makeText(this@AddTotpActivity, "result: $result", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ScanTotpActivity, "result: $result", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {
@@ -51,7 +36,7 @@ class AddTotpActivity : AppCompatActivity() {
             }
 
             override fun onScanQRCodeOpenCameraError() {
-                Toast.makeText(this@AddTotpActivity, "打开相机出错", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ScanTotpActivity, "打开相机出错", Toast.LENGTH_SHORT).show()
             }
 
         })
