@@ -1,6 +1,7 @@
 package org.getbuddies.a2step.ui.totp
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +29,7 @@ class ScanTotpActivity : AppCompatActivity() {
         mBinding.zxingview.setDelegate(object : QRCodeView.Delegate {
             override fun onScanQRCodeSuccess(result: String?) {
                 Toast.makeText(this@ScanTotpActivity, "result: $result", Toast.LENGTH_SHORT).show()
-
+                startActivity(Intent(this@ScanTotpActivity, ScanTopVerifyActivity::class.java))
             }
 
             override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {
@@ -40,12 +41,13 @@ class ScanTotpActivity : AppCompatActivity() {
             }
 
         })
-        mBinding.zxingview.setOnClickListener {
-        }
-        requestCameraPermission()
     }
 
-    private fun requestCameraPermission() {
+    private fun checkPermissionAndSpot() {
+        if (PermissionX.isGranted(this, Manifest.permission.CAMERA)) {
+            mZXingView.startSpot()
+            return
+        }
         PermissionX.init(this).permissions(Manifest.permission.CAMERA)
             .request { allGranted, _, deniedList ->
                 if (allGranted) {
@@ -54,5 +56,16 @@ class ScanTotpActivity : AppCompatActivity() {
                     Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        checkPermissionAndSpot()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mZXingView.stopCamera()
     }
 }

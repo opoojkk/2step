@@ -22,6 +22,7 @@
         app:qrcv_cornerColor="@color/md_theme_light_primary"
         app:qrcv_cornerLength="20dp"
         app:qrcv_cornerSize="3dp"
+        app:qrcv_isTipTextBelowRect="true"
         app:qrcv_maskColor="#33FFFFFF"
         app:qrcv_qrCodeTipText="将二维码放入框内，即可自动扫描"
         app:qrcv_rectWidth="200dp"
