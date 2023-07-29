@@ -1,6 +1,5 @@
 package org.getbuddies.a2step.db.totp
 
-import androidx.lifecycle.LiveData
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.getbuddies.a2step.db.totp.entity.Totp
@@ -9,7 +8,7 @@ import org.getbuddies.a2step.db.totp.entity.Totp
 abstract class TotpDataBase : RoomDatabase() {
     abstract fun totpDao(): TotpDao
 
-    fun getAll(): LiveData<List<Totp>> {
+    fun getAll(): List<Totp>? {
         return totpDao().getAll()
     }
 

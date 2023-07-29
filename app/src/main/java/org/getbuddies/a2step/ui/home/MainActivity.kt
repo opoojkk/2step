@@ -6,11 +6,16 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
@@ -20,7 +25,9 @@ import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mTotpViewModel: TotpViewModel
+    private val mTotpViewModel by lazy {
+        ViewModelProvider(this)[TotpViewModel::class.java]
+    }
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
     private val speedDialView: SpeedDialView by lazy { mBinding.speedDial }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,22 +44,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        mTotpViewModel = ViewModelProvider(this)[TotpViewModel::class.java]
-        mTotpViewModel.totpListLiveData.observe(this) {
+        mTotpViewModel.totpList.observe(this) {
             updateRecyclerView(it)
-            adapter.notifyDataSetChanged()
         }
     }
 
     private fun initRecyclerView() {
         adapter.register(Totp::class.java, TotpDelegate())
-        adapter.items = mTotpViewModel.totpListLiveData.value ?: emptyList()
+        adapter.items = mTotpViewModel.totpList.value ?: emptyList()
         mBinding.totpRecyclerView.adapter = adapter
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun updateRecyclerView(totps: List<Totp>) {
         adapter.items = totps
+        adapter.notifyDataSetChanged()
     }
 
     private fun initDialView() {
@@ -85,6 +91,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                mTotpViewModel.refreshTotpList()
+            }
         }
     }
 }
