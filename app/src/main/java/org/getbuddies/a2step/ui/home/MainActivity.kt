@@ -14,8 +14,9 @@ import com.leinardi.android.speeddial.SpeedDialView
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
-import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
+import org.getbuddies.a2step.ui.totp.InputManualActivity
+import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         speedDialView.setOnActionSelectedListener { actionItem ->
             when (actionItem.id) {
                 R.id.fab_input_scan -> {
-
+                    startActivity(Intent(this, InputManualActivity::class.java))
                 }
 
                 R.id.fab_input_manual -> {
