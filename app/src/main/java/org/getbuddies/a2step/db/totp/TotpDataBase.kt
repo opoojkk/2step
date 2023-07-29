@@ -18,6 +18,6 @@ abstract class TotpDataBase : RoomDatabase() {
     }
 
     fun delete(totp: Totp) {
-        totpDao().delete(totp)
+        totpDao().delete(totp.account)
     }
 }

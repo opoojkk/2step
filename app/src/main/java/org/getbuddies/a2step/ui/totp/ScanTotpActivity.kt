@@ -5,9 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.databinding.ActivityScanTotpBinding
+import org.getbuddies.a2step.db.DataBases
+import org.getbuddies.a2step.ui.home.TotpViewModel
 
 
 class ScanTotpActivity : AppCompatActivity() {
@@ -28,7 +31,7 @@ class ScanTotpActivity : AppCompatActivity() {
     private fun initZxingView() {
         mBinding.zxingview.setDelegate(object : QRCodeView.Delegate {
             override fun onScanQRCodeSuccess(result: String?) {
-                Toast.makeText(this@ScanTotpActivity, "result: $result", Toast.LENGTH_SHORT).show()
+
                 startActivity(Intent(this@ScanTotpActivity, ScanTopVerifyActivity::class.java))
             }
 

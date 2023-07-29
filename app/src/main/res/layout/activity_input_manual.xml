@@ -7,36 +7,49 @@
     tools:context=".ui.totp.InputManualActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_input"
+        android:id="@+id/account_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:hint="123"
+        android:hint="@string/hint_totp_account_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15">
+        app:layout_constraintVertical_bias="0.12">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_input_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/account_input"
+        android:id="@+id/secret_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:hint="123"
-        app:layout_constraintEnd_toEndOf="@+id/name_input"
+        android:hint="@string/hint_totp_secret_input"
+        app:layout_constraintEnd_toEndOf="@+id/account_input"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@+id/name_input"
-        app:layout_constraintTop_toBottomOf="@+id/name_input">
+        app:layout_constraintStart_toStartOf="@+id/account_input"
+        app:layout_constraintTop_toBottomOf="@+id/account_input">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/secret_input_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="I65VU7K5ZQL7WB4E" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/text_add_totp_submit"
+        app:layout_constraintEnd_toEndOf="@+id/secret_input"
+        app:layout_constraintStart_toStartOf="@+id/secret_input"
+        app:layout_constraintTop_toBottomOf="@+id/secret_input" />
 </androidx.constraintlayout.widget.ConstraintLayout>

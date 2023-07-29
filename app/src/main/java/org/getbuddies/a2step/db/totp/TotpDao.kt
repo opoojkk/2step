@@ -18,11 +18,8 @@ interface TotpDao {
     @Insert(entity = Totp::class)
     fun insertAll(vararg totp: Totp)
 
-    @Query("DELETE FROM totp_db WHERE name = :name AND account = :account")
-    fun delete(name: String, account: String)
-
-    @Delete
-    fun delete(totp: Totp)
+    @Query("DELETE FROM totp_db WHERE account = :account")
+    fun delete(account: String)
 
     @Delete()
     fun deleteAll(vararg totp: Totp)
