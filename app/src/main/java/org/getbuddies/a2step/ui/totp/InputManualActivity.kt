@@ -28,11 +28,20 @@ class InputManualActivity : AppCompatActivity() {
 
     private fun initViews() {
         mBinding.submitButton.setOnClickListener {
-            val name = mBinding.accountInputEdit.text.toString()
+            val name = mBinding.nameInputEdit.text.toString()
             if (name.isEmpty()) {
                 Toast.makeText(
                     this@InputManualActivity,
                     "请输入两步验证账号名称",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            val account = mBinding.accountInputEdit.text.toString()
+            if (account.isEmpty()) {
+                Toast.makeText(
+                    this@InputManualActivity,
+                    "请输入两步验证账号",
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -55,7 +64,7 @@ class InputManualActivity : AppCompatActivity() {
             }
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    mTotpViewModel.insert(Totp(name, secret))
+                    mTotpViewModel.insert(Totp(name, account, secret))
                 }
                 finish()
             }

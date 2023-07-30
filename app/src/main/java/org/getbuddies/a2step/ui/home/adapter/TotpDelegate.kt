@@ -38,6 +38,7 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
         }
 
         fun bind(item: Totp) {
+            mBinding.totpName.text = item.name
             mBinding.totpAccount.text = item.account
             mBinding.totpCode.text = TotpGenerator.generateNow(item.secret)
         }
