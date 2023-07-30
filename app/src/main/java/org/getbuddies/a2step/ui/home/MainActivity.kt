@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
     private fun initSearchBar() {
         mBinding.searchBar.setRoundedOutlineProvider(45f)
         mBinding.searchBarMenuIcon.setRoundedOutlineProvider(40f)
+        mBinding.searchBarMenuIcon.setOnClickListener {
+
+        }
     }
 
     private fun initViewModel() {
