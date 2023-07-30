@@ -6,4 +6,5 @@
     <string name="text_add_totp_submit">提交</string>
     <string name="label_input_scan">扫码</string>
     <string name="label_input_manual">手动输入</string>
+    <string name="hint_search_bar">搜索</string>
 </resources>

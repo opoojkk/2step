@@ -20,6 +20,7 @@ import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
+import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 
@@ -39,8 +40,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        initSearchBar()
         initRecyclerView()
         initDialView()
+    }
+
+    private fun initSearchBar() {
+        mBinding.searchBar.setRoundedOutlineProvider(45f)
+        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(40f)
     }
 
     private fun initViewModel() {
