@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.getbuddies.a2step.consts.MMKVs.KEY_TOTP
 import org.getbuddies.a2step.db.DataBases
 import java.io.File
 
@@ -19,8 +20,8 @@ class BackupWorker(appContext: Context, workerParams: WorkerParameters) :
         GlobalScope.launch {
             withContext(Dispatchers.IO) {
                 val sardine = OkHttpSardine()
-                val webDavAccount = MMKV.defaultMMKV().getString("webDavAccount", "")
-                val webDavPassword = MMKV.defaultMMKV().getString("webDavPassword", "")
+                val webDavAccount = MMKV.mmkvWithID(KEY_TOTP).getString("webDavAccount", "")
+                val webDavPassword = MMKV.mmkvWithID(KEY_TOTP).getString("webDavPassword", "")
                 sardine.setCredentials(webDavAccount, webDavPassword)
                 val dirs = sardine.list(JIANGUOYUN + PREFIX)
                 if (!hasBackupDir(dirs)) {
