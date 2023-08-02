@@ -21,6 +21,7 @@ import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
+import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         initSearchBar()
         initRecyclerView()
         initDialView()
+        initMenu()
     }
 
     private fun initSearchBar() {
@@ -101,6 +103,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+    }
+
+    private fun initMenu() {
+        mBinding.searchBarMenuIcon.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 

@@ -11,6 +11,8 @@ import com.tencent.mmkv.MMKV
 import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_ENABLED
+import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_KEY
 import org.getbuddies.a2step.worker.BackupWorker
 import java.util.concurrent.TimeUnit
 
@@ -20,11 +22,15 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        startWorkManager()
         initMMKV()
+        startWorkManager()
     }
 
     private fun startWorkManager() {
+        val webDavEnabled = MMKV.mmkvWithID(WEBDAV_KEY).getBoolean(WEBDAV_ENABLED, false)
+        if (!webDavEnabled) {
+            return
+        }
         val workRequest: WorkRequest =
             PeriodicWorkRequestBuilder<BackupWorker>(90, TimeUnit.SECONDS)
                 .build()
