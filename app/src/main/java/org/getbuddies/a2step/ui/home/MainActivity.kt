@@ -18,13 +18,14 @@ import kotlinx.coroutines.withContext
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
-import org.getbuddies.a2step.ui.utils.NavigationBars.fixNavBarMargin
-import org.getbuddies.a2step.ui.utils.StatusBars.configStatusBar
+import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
+import org.getbuddies.a2step.ui.utils.NavigationBars.fixNavBarMargin
+import org.getbuddies.a2step.ui.utils.StatusBars.configStatusBar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -51,10 +52,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSearchBar() {
-        mBinding.searchBar.setRoundedOutlineProvider(45f)
-        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(40f)
+        mBinding.searchBar.setRoundedOutlineProvider(20f.dpToPx().toFloat())
+        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
         mBinding.searchBarMenuIcon.setOnClickListener {
-
         }
     }
 

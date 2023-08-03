@@ -12,6 +12,7 @@ import org.getbuddies.a2step.extends.clip
 import org.getbuddies.a2step.databinding.LayoutTotpItemBinding
 import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 
 class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
@@ -30,7 +31,7 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
 
         init {
             mBinding = LayoutTotpItemBinding.bind(itemView)
-            itemView.setRoundedOutlineProvider(40f)
+            itemView.setRoundedOutlineProvider(20f.dpToPx().toFloat())
             itemView.setOnClickListener {
                 it.context.clip(mBinding.totpCode.text.toString())
                 Toast.makeText(it.context, "已复制", Toast.LENGTH_SHORT).show()
