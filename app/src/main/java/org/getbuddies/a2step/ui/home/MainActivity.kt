@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,6 +18,8 @@ import kotlinx.coroutines.withContext
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.ui.utils.NavigationBars.fixNavBarMargin
+import org.getbuddies.a2step.ui.utils.StatusBars.configStatusBar
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.SettingsActivity
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         initViewModel()
+        configStatusBar(window, mBinding.root)
+        fixNavBarMargin(mBinding.root)
         initViews()
     }
 
