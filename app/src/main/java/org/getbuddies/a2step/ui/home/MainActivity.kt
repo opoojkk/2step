@@ -1,20 +1,31 @@
 package org.getbuddies.a2step.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.drakeet.multitype.MultiTypeAdapter
+import com.google.android.material.divider.MaterialDivider
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
@@ -52,10 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSearchBar() {
-        mBinding.searchBar.setRoundedOutlineProvider(20f.dpToPx().toFloat())
-        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
-        mBinding.searchBarMenuIcon.setOnClickListener {
-        }
+        mBinding.searchBar.setRoundedOutlineProvider(28f.dpToPx().toFloat())
+        initMenu()
     }
 
     private fun initViewModel() {
@@ -68,6 +77,15 @@ class MainActivity : AppCompatActivity() {
         adapter.register(Totp::class.java, TotpDelegate())
         adapter.items = mTotpViewModel.totpList.value ?: emptyList()
         mBinding.totpRecyclerView.adapter = adapter
+        mBinding.totpRecyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(
+                this,
+                RecyclerView.VERTICAL
+            ).apply {
+                this.dividerInsetStart = 15f.dpToPx()
+                dividerInsetEnd = 20f.dpToPx()
+            }
+        )
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
@@ -110,6 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMenu() {
+        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
         mBinding.searchBarMenuIcon.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }

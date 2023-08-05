@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewDelegate
 import org.getbuddies.a2step.R
-import org.getbuddies.a2step.extends.clip
 import org.getbuddies.a2step.databinding.LayoutTotpItemBinding
-import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.extends.clip
+import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 
