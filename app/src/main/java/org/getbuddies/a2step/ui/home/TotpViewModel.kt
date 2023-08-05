@@ -2,7 +2,6 @@ package org.getbuddies.a2step.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,7 +29,7 @@ class TotpViewModel : ViewModel() {
         }
     }
 
-    fun updateTotpList(newTotpList: List<Totp>?) {
+    private fun updateTotpList(newTotpList: List<Totp>?) {
         newTotpList ?: return
         totpList.value ?: let {
             totpList.postValue(newTotpList)
