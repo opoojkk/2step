@@ -2,6 +2,12 @@ package org.getbuddies.a2step.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.getbuddies.a2step.db.DataBases
 import org.getbuddies.a2step.db.totp.TotpDao
 import org.getbuddies.a2step.db.totp.TotpDataBase
@@ -16,7 +22,15 @@ class TotpViewModel : ViewModel() {
     }
 
     fun refreshTotpList() {
-        val newTotpList = mTotpDao.getAll()
+        viewModelScope.launch {
+            val deferredTotpList = withContext(Dispatchers.IO) {
+                async { mTotpDao.getAll() }.await()
+            }
+            updateTotpList(deferredTotpList)
+        }
+    }
+
+    fun updateTotpList(newTotpList: List<Totp>?) {
         newTotpList ?: return
         totpList.value ?: let {
             totpList.postValue(newTotpList)

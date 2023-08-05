@@ -136,10 +136,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                mTotpViewModel.refreshTotpList()
-            }
-        }
+        refreshTotps()
+    }
+
+    private fun refreshTotps() {
+        mTotpViewModel.refreshTotpList()
     }
 }
