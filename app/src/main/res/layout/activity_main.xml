@@ -36,17 +36,34 @@
             <EditText
                 android:id="@+id/search_bar_edit_text"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="14dp"
+                android:layout_marginEnd="6dp"
                 android:background="@null"
                 android:hint="@string/hint_search_bar"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:lines="1"
+                android:maxLines="1"
                 android:textColorHint="#666666"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/search_bar_clear_icon"
                 app:layout_constraintStart_toEndOf="@+id/search_bar_menu_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginEnd="6dp" />
+
+            <ImageButton
+                android:id="@+id/search_bar_clear_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:src="@drawable/icon_search_bar_clear"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>

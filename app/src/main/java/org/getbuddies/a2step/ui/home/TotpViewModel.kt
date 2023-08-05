@@ -1,5 +1,6 @@
 package org.getbuddies.a2step.ui.home
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,15 @@ class TotpViewModel : ViewModel() {
         }
     }
 
+    fun queryTotpList(query: String) {
+        viewModelScope.launch {
+            val deferredTotpList = withContext(Dispatchers.IO) {
+                async { mTotpDao.query(query) }.await()
+            }
+            updateTotpList(deferredTotpList)
+        }
+    }
+
     private fun updateTotpList(newTotpList: List<Totp>?) {
         newTotpList ?: return
         totpList.value ?: let {
@@ -37,10 +47,8 @@ class TotpViewModel : ViewModel() {
         }
         val oldSize = totpList.value!!.size
         val newSize = newTotpList.size
-        if (oldSize == newSize) {
-            return
-        }
-        if (totpList.value!!.containsAll(newTotpList)) {
+        // If the size of the list is the same and the content is the same, no update is required
+        if (oldSize == newSize && totpList.value!!.containsAll(newTotpList)) {
             return
         }
         totpList.postValue(newTotpList)

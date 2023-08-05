@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         initSearchBar()
         initRecyclerView()
         initDialView()
-        initMenu()
+        initSearchBarEditText()
     }
 
     private fun initSearchBar() {
@@ -125,14 +126,30 @@ class MainActivity : AppCompatActivity() {
         mBinding.searchBarMenuIcon.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        mBinding.searchBarClearIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
+        mBinding.searchBarClearIcon.setOnClickListener {
+            mBinding.searchBarEditText.text.clear()
+        }
+    }
+
+    private fun initSearchBarEditText() {
+        mBinding.searchBarEditText.addTextChangedListener {
+            if (it.isNullOrEmpty()) {
+                mBinding.searchBarClearIcon.visibility = View.GONE
+                queryAllTotpsFromTable()
+                return@addTextChangedListener
+            }
+            mBinding.searchBarClearIcon.visibility = View.VISIBLE
+            mTotpViewModel.queryTotpList(it.toString())
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        refreshTotps()
+        queryAllTotpsFromTable()
     }
 
-    private fun refreshTotps() {
+    private fun queryAllTotpsFromTable() {
         mTotpViewModel.refreshTotpList()
     }
 
@@ -146,6 +163,12 @@ class MainActivity : AppCompatActivity() {
     private fun handleTouchOutsideEditText(ev: MotionEvent) {
         val view = currentFocus
         if (view is EditText) {
+            val inRect = Rect()
+            mBinding.searchBarClearIcon.getGlobalVisibleRect(inRect)
+            if (isTouchEventInsideViewRect(inRect, ev)) {
+                // 点击了清除按钮
+                return
+            }
             val outRect = Rect()
             view.getGlobalVisibleRect(outRect)
             if (isTouchEventOutsideViewRect(outRect, ev)) {
@@ -157,6 +180,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun isTouchEventOutsideViewRect(outRect: Rect, ev: MotionEvent): Boolean {
         return !outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())
+    }
+
+    private fun isTouchEventInsideViewRect(inRect: Rect, ev: MotionEvent): Boolean {
+        return inRect.contains(ev.rawX.toInt(), ev.rawY.toInt())
     }
 
     private fun hideKeyboard(view: View) {
