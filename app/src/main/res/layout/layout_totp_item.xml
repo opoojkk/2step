@@ -53,4 +53,14 @@
         app:layout_constraintTop_toBottomOf="@+id/totp_account"
         tools:text="123 456" />
 
+    <org.getbuddies.a2step.ui.home.view.ProgressBar
+        android:id="@+id/totp_progress_bar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/design_default_color_primary" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

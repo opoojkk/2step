@@ -14,6 +14,7 @@ import org.getbuddies.a2step.extends.clip
 import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
+import org.getbuddies.a2step.ui.home.view.ProgressBar
 
 class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
@@ -41,7 +42,12 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
         fun bind(item: Totp) {
             mBinding.totpName.text = item.name
             mBinding.totpAccount.text = item.account
-            mBinding.totpCode.text = TotpGenerator.generateNow(item.secret)
+            mBinding.totpProgressBar.setOnProgressListener(object : ProgressBar.OnProgressListener {
+                override fun generateTotp() {
+                    mBinding.totpCode.text = TotpGenerator.generateNow(item.secret)
+                }
+            })
+            mBinding.totpProgressBar.start()
         }
     }
 }
