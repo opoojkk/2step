@@ -1,7 +1,13 @@
 package org.getbuddies.a2step.ui.home
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
@@ -129,4 +135,33 @@ class MainActivity : AppCompatActivity() {
     private fun refreshTotps() {
         mTotpViewModel.refreshTotpList()
     }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            handleTouchOutsideEditText(ev)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun handleTouchOutsideEditText(ev: MotionEvent) {
+        val view = currentFocus
+        if (view is EditText) {
+            val outRect = Rect()
+            view.getGlobalVisibleRect(outRect)
+            if (isTouchEventOutsideViewRect(outRect, ev)) {
+                view.clearFocus()
+                hideKeyboard(view)
+            }
+        }
+    }
+
+    private fun isTouchEventOutsideViewRect(outRect: Rect, ev: MotionEvent): Boolean {
+        return !outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
 }
