@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewDelegate
+import com.google.android.material.snackbar.Snackbar
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.LayoutTotpItemBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
@@ -35,7 +35,7 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
             itemView.setRoundedOutlineProvider(20f.dpToPx().toFloat())
             itemView.setOnClickListener {
                 it.context.clip(mBinding.totpCode.text.toString())
-                Toast.makeText(it.context, "已复制", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "已复制", Snackbar.LENGTH_SHORT).show()
             }
         }
 
