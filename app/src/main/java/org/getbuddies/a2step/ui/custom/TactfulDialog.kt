@@ -1,11 +1,14 @@
 package org.getbuddies.a2step.ui.custom
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.Gravity
 import android.view.View
+import android.view.WindowInsets
 import org.getbuddies.a2step.R
+import org.getbuddies.a2step.ui.home.extends.getActivityFromView
 
 class TactfulDialog : Dialog {
     constructor(context: Context) : this(context, R.style.TactfulDialog)
@@ -24,13 +27,20 @@ class TactfulDialog : Dialog {
         window?.attributes?.width = width
     }
 
-    fun setAnchorView(view: View) {
+    fun setAnchorView(view: View, offsetX: Int = 0, offsetY: Int = 0) {
+        val activity = view.getActivityFromView() ?: return
+        val window = window ?: return
+
         val location = IntArray(2)
         view.getLocationOnScreen(location)
         val y = location[1]
-        window ?: return
-        window!!.attributes?.y = y + view.height
-        window!!.setGravity(Gravity.TOP)
+
+        val windowInsets = activity.window.decorView.rootWindowInsets
+
+        val attributes = window.attributes ?: return
+        attributes.y = y + view.height - windowInsets.systemWindowInsetTop + offsetY
+        attributes.x = attributes.x + offsetX
+        window.setGravity(Gravity.TOP)
     }
 
     override fun show() {
