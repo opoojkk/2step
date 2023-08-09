@@ -11,4 +11,7 @@
     <string name="hint_server_account">账号</string>
     <string name="hint_server_password">密码</string>
     <string name="text_jianguo_url">https://dav.jianguoyun.com/dav</string>
+    <string name="label_settings_sync">同步设置</string>
+    <string name="label_settings_about">关于</string>
+    <string name="label_settings_license">开源协议</string>
 </resources>
