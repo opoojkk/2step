@@ -3,12 +3,7 @@ package org.getbuddies.a2step.ui.custom
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.icu.text.ListFormatter.Width
-import android.view.View
 import org.getbuddies.a2step.R
-import org.getbuddies.a2step.ui.extendz.dpToPx
-import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
-import org.getbuddies.a2step.ui.utils.ScreenUtil
 
 class TactfulDialog : Dialog {
     constructor(context: Context) : this(context, R.style.TactfulDialog)
