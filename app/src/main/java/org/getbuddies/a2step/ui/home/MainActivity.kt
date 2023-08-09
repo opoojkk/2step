@@ -132,6 +132,7 @@ class MainActivity : AppCompatActivity() {
             view.setRoundedOutlineProvider(24f.dpToPx().toFloat())
             tactfulDialog.setContentView(view)
             tactfulDialog.setWidth(ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2)
+            tactfulDialog.setAnchorView(mBinding.searchBar)
             tactfulDialog.show()
         }
         mBinding.searchBarClearIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
