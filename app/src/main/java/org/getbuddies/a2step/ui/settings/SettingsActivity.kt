@@ -1,8 +1,9 @@
 package org.getbuddies.a2step.ui.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivitySettingsBinding
@@ -24,6 +25,18 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        initSubmitButton()
+        initSyncWayAutoCompleteTextView()
+    }
+
+    private fun initSyncWayAutoCompleteTextView() {
+        val items = resources.getStringArray(R.array.label_sync_ways)
+        val adapter = ArrayAdapter(this, R.layout.item_settings_sync_way, items)
+        mBinding.syncAutoCompleteTextView.setAdapter(adapter)
+        mBinding.syncAutoCompleteTextView.setText(items[0], false)
+    }
+
+    private fun initSubmitButton() {
         mBinding.submitButton.setOnClickListener {
             saveWebDavAccount()
         }
