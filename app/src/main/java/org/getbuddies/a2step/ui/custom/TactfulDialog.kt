@@ -9,8 +9,11 @@ import android.view.View
 import android.view.WindowInsets
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.ui.home.extends.getActivityFromView
+import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 
 class TactfulDialog : Dialog {
+    private lateinit var mContentView: View
+
     constructor(context: Context) : this(context, R.style.TactfulDialog)
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
     constructor(
@@ -41,6 +44,15 @@ class TactfulDialog : Dialog {
         attributes.y = y + view.height - windowInsets.systemWindowInsetTop + offsetY
         attributes.x = attributes.x + offsetX
         window.setGravity(Gravity.TOP)
+    }
+
+    override fun setContentView(view: View) {
+        mContentView = view
+        super.setContentView(view)
+    }
+
+    fun setCornerRadius(radius: Float) {
+        mContentView.setRoundedOutlineProvider(radius)
     }
 
     override fun show() {
