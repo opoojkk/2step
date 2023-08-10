@@ -22,11 +22,13 @@ import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
+import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
+import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 import org.getbuddies.a2step.ui.utils.NavigationBars.fixNavBarMargin
@@ -126,10 +128,11 @@ class MainActivity : AppCompatActivity() {
     private fun initMenu() {
         mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
         mBinding.searchBarMenuIcon.setOnClickListener {
-//            startActivity(Intent(this, SettingsActivity::class.java))
-            val tactfulDialog = TactfulDialog(this)
-            val view = layoutInflater.inflate(R.layout.dialog_main_settings, null)
-            tactfulDialog.setContentView(view)
+            val tactfulDialog = TactfulDialog<DialogMainSettingsBinding>(this)
+            tactfulDialog.setContentView(DialogMainSettingsBinding.inflate(layoutInflater))
+            tactfulDialog.getViewBinding().settingsSyncText.setOnClickListener {
+                this@MainActivity.startActivity(Intent(this, SettingsActivity::class.java))
+            }
             tactfulDialog.setCornerRadius(24f.dpToPx().toFloat())
             tactfulDialog.setWidth(ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2)
             tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx())
