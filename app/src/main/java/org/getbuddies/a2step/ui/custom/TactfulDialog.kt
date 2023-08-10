@@ -1,12 +1,10 @@
 package org.getbuddies.a2step.ui.custom
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.Gravity
 import android.view.View
-import android.view.WindowInsets
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.ui.home.extends.getActivityFromView
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
