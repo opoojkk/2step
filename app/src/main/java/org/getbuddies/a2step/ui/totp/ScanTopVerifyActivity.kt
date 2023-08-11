@@ -4,17 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityScanTopVerifyBinding
+import org.getbuddies.a2step.ui.base.ViewBindingActivity
 
-class ScanTopVerifyActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityScanTopVerifyBinding
+class ScanTopVerifyActivity : ViewBindingActivity<ActivityScanTopVerifyBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityScanTopVerifyBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         initViews()
     }
 
-    private fun initViews() {
+    override fun getViewBinding(): ActivityScanTopVerifyBinding {
+        return ActivityScanTopVerifyBinding.inflate(layoutInflater)
+    }
 
+    override fun initViews() {
     }
 }

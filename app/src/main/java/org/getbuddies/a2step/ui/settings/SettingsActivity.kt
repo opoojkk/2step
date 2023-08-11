@@ -7,24 +7,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivitySettingsBinding
+import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.settings.viewModel.WebDavViewModel
 
-class SettingsActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivitySettingsBinding
+class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
     private lateinit var mViewModel: WebDavViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         initViewModel()
         initViews()
+    }
+
+    override fun getViewBinding(): ActivitySettingsBinding {
+        return ActivitySettingsBinding.inflate(layoutInflater)
     }
 
     private fun initViewModel() {
         mViewModel = ViewModelProvider(this)[WebDavViewModel::class.java]
     }
 
-    private fun initViews() {
+    override fun initViews() {
         initSubmitButton()
         initSyncWayAutoCompleteTextView()
     }

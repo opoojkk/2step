@@ -9,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +23,7 @@ import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
@@ -31,30 +31,27 @@ import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
-import org.getbuddies.a2step.ui.utils.NavigationBars.fixNavBarMargin
 import org.getbuddies.a2step.ui.utils.ScreenUtil
-import org.getbuddies.a2step.ui.utils.StatusBars.configStatusBar
 
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityMainBinding
+class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private val mTotpViewModel by lazy {
         ViewModelProvider(this)[TotpViewModel::class.java]
     }
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
-    private val speedDialView: SpeedDialView by lazy { mBinding.speedDial }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         initViewModel()
-        configStatusBar(window, mBinding.root)
-        fixNavBarMargin(mBinding.root)
-        initViews()
     }
 
-    private fun initViews() {
+    override fun getViewBinding(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    override fun initViews() {
         initSearchBar()
+        initMenu()
         initRecyclerView()
         initDialView()
         initSearchBarEditText()
@@ -62,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initSearchBar() {
         mBinding.searchBar.setRoundedOutlineProvider(28f.dpToPx().toFloat())
-        initMenu()
     }
 
     private fun initViewModel() {
@@ -93,6 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDialView() {
+        val speedDialView: SpeedDialView = mBinding.speedDial
         speedDialView.findViewById<FloatingActionButton>(com.leinardi.android.speeddial.R.id.sd_main_fab)
             .updateLayoutParams<LinearLayout.LayoutParams> {
                 topMargin = 0

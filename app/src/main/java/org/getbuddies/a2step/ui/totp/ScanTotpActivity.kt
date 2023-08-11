@@ -4,27 +4,25 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.databinding.ActivityScanTotpBinding
-import org.getbuddies.a2step.db.DataBases
-import org.getbuddies.a2step.ui.home.TotpViewModel
+import org.getbuddies.a2step.ui.base.ViewBindingActivity
 
 
-class ScanTotpActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityScanTotpBinding
+class ScanTotpActivity : ViewBindingActivity<ActivityScanTotpBinding>() {
     private val mZXingView: QRCodeView by lazy { mBinding.zxingview }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityScanTotpBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         initViews()
     }
 
-    private fun initViews() {
+    override fun getViewBinding(): ActivityScanTotpBinding {
+        return ActivityScanTotpBinding.inflate(layoutInflater)
+    }
+
+    override fun initViews() {
         initZxingView()
     }
 
