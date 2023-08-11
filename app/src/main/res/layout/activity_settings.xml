@@ -7,14 +7,28 @@
     android:paddingHorizontal="15dp"
     tools:context=".ui.settings.SettingsActivity">
 
+    <TextView
+        android:id="@+id/sync_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/label_settings_sync_way"
+        app:layout_constraintBottom_toBottomOf="@+id/sync_menu_text_layout"
+        app:layout_constraintEnd_toStartOf="@+id/sync_menu_text_layout"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sync_menu_text_layout" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/sync_menu_text_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sync_text_view"
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
@@ -31,15 +45,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/hint_server_url"
-        app:layout_constraintEnd_toEndOf="@+id/sync_menu_text_layout"
-        app:layout_constraintStart_toStartOf="@+id/sync_menu_text_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sync_menu_text_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/server_url_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:editable="false"
             android:text="@string/text_jianguo_url" />
     </com.google.android.material.textfield.TextInputLayout>
 

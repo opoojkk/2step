@@ -22,4 +22,5 @@
         <item>@string/label_settings_sync_onedrive</item>
         <item>@string/label_settings_sync_google_drive</item>
     </string-array>
+    <string name="label_settings_sync_way">同步方式</string>
 </resources>
