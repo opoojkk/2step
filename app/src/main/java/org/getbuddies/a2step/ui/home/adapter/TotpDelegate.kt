@@ -32,7 +32,7 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
 
         init {
             mBinding = LayoutTotpItemBinding.bind(itemView)
-            itemView.setRoundedOutlineProvider(20f.dpToPx().toFloat())
+            itemView.setRoundedOutlineProvider(20f.dpToPx())
             itemView.setOnClickListener {
                 it.context.clip(mBinding.totpCode.text.toString())
                 Snackbar.make(it, "已复制", Snackbar.LENGTH_SHORT).show()

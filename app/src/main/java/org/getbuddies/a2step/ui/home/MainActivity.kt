@@ -58,7 +58,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun initSearchBar() {
-        mBinding.searchBar.setRoundedOutlineProvider(28f.dpToPx().toFloat())
+        mBinding.searchBar.setRoundedOutlineProvider(28f.dpToPx())
     }
 
     private fun initViewModel() {
@@ -76,8 +76,8 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
                 this,
                 RecyclerView.VERTICAL
             ).apply {
-                this.dividerInsetStart = 15f.dpToPx()
-                dividerInsetEnd = 20f.dpToPx()
+                this.dividerInsetStart = 15f.dpToPx().toInt()
+                dividerInsetEnd = 20f.dpToPx().toInt()
             }
         )
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -123,19 +123,20 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun initMenu() {
-        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
+        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx())
         mBinding.searchBarMenuIcon.setOnClickListener {
             val tactfulDialog = TactfulDialog<DialogMainSettingsBinding>(this)
             tactfulDialog.setContentView(DialogMainSettingsBinding.inflate(layoutInflater))
             tactfulDialog.getViewBinding().settingsSyncText.setOnClickListener {
                 this@MainActivity.startActivity(Intent(this, SettingsActivity::class.java))
+                tactfulDialog.dismiss()
             }
-            tactfulDialog.setCornerRadius(24f.dpToPx().toFloat())
-            tactfulDialog.setWidth(ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2)
-            tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx())
+            tactfulDialog.setCornerRadius(24f.dpToPx())
+            tactfulDialog.setWidth((ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2).toInt())
+            tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx().toInt())
             tactfulDialog.show()
         }
-        mBinding.searchBarClearIcon.setRoundedOutlineProvider(20f.dpToPx().toFloat())
+        mBinding.searchBarClearIcon.setRoundedOutlineProvider(20f.dpToPx())
         mBinding.searchBarClearIcon.setOnClickListener {
             mBinding.searchBarEditText.text.clear()
         }
