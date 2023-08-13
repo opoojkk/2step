@@ -26,6 +26,11 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     }
 
     override fun initViews() {
+        initBackButton()
+        initSubmitButton()
+    }
+
+    private fun initSubmitButton() {
         mBinding.submitButton.setOnClickListener {
             val name = mBinding.nameInputEdit.text.toString()
             if (name.isEmpty()) {
@@ -67,6 +72,12 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
                 }
                 finish()
             }
+        }
+    }
+
+    private fun initBackButton() {
+        mBinding.backButton.setOnClickListener {
+            finish()
         }
     }
 }
