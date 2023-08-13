@@ -11,7 +11,9 @@ import org.getbuddies.a2step.databinding.ActivityInputManualBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
+import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.TotpViewModel
+import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 
 class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     private val mTotpViewModel by lazy { ViewModelProvider(this)[TotpViewModel::class.java] }
@@ -76,6 +78,7 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     }
 
     private fun initBackButton() {
+        mBinding.backButton.setRoundedOutlineProvider(20f.dpToPx())
         mBinding.backButton.setOnClickListener {
             finish()
         }
