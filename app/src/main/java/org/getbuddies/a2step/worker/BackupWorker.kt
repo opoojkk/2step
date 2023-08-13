@@ -10,13 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.getbuddies.a2step.consts.MMKVs.KEY_TOTP
-import org.getbuddies.a2step.consts.WebDavMMKVs
 import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_ACCOUNT
 import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_KEY
 import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_PASSWORD
 import org.getbuddies.a2step.db.DataBases
-import java.io.File
 
 class BackupWorker(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {

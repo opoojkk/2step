@@ -4,15 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="15dp"
     tools:context=".ui.settings.SettingsActivity">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/back" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_settings_sync_save" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/sync_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/label_settings_sync_way"
+        android:layout_marginHorizontal="15dp"
+        android:paddingStart="16dp"
+        android:text="@string/label_settings_sync_method"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/sync_menu_text_layout"
         app:layout_constraintEnd_toStartOf="@+id/sync_menu_text_layout"
         app:layout_constraintHorizontal_bias="0"
@@ -27,9 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sync_text_view"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <AutoCompleteTextView
             android:id="@+id/sync_auto_complete_text_view"
@@ -45,8 +78,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/hint_server_url"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sync_menu_text_layout"
+        app:layout_constraintStart_toStartOf="@+id/sync_text_view"
         app:layout_constraintTop_toBottomOf="@+id/sync_menu_text_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -58,12 +91,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/account_input"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/hint_server_account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/server_url_layout"
+        app:layout_constraintStart_toStartOf="@+id/server_url_layout"
         app:layout_constraintTop_toBottomOf="@+id/server_url_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -75,12 +108,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_input"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/hint_server_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/account_input"
+        app:layout_constraintStart_toStartOf="@+id/account_input"
         app:layout_constraintTop_toBottomOf="@+id/account_input">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,14 +122,24 @@
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/submit_button"
+    <TextView
+        android:id="@+id/sync_none_notice_text_view"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/text_add_totp_submit"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/password_input"
-        app:layout_constraintStart_toStartOf="@+id/password_input"
-        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_settings_sync_none_notice"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/sync_menu_text_layout"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/sync_text_view"
+        app:layout_constraintTop_toTopOf="@+id/server_url_layout" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/layer_webdav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="server_url_layout,account_input,password_input"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

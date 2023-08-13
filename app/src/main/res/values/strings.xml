@@ -14,13 +14,15 @@
     <string name="label_settings_sync">同步设置</string>
     <string name="label_settings_about">关于</string>
     <string name="label_settings_license">开源协议</string>
+    <string name="label_settings_sync_NONE">None</string>
     <string name="label_settings_sync_webdav">WebDAV</string>
     <string name="label_settings_sync_onedrive">OneDrive</string>
     <string name="label_settings_sync_google_drive">Google Drive</string>
-    <string-array name="label_sync_ways">
+    <string-array name="label_sync_methods">
+        <item>@string/label_settings_sync_NONE</item>
         <item>@string/label_settings_sync_webdav</item>
-        <item>@string/label_settings_sync_onedrive</item>
-        <item>@string/label_settings_sync_google_drive</item>
     </string-array>
-    <string name="label_settings_sync_way">同步方式</string>
+    <string name="label_settings_sync_method">同步方式</string>
+    <string name="text_settings_sync_save">保存</string>
+    <string name="label_settings_sync_none_notice"><b>注意：</b>\n当前同步是<b>关闭</b>状态，这意味着不会将客户端的数据同步到其他服务中。\n若您主动清除APP数据您的数据将会丢失！</string>
 </resources>

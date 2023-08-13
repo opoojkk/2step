@@ -1,17 +1,26 @@
 package org.getbuddies.a2step.ui.settings
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import com.tencent.mmkv.MMKV
 import org.getbuddies.a2step.R
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_METHOD
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_SETTINGS
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_NONE
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_WEBDAV
 import org.getbuddies.a2step.databinding.ActivitySettingsBinding
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
+import org.getbuddies.a2step.ui.extendz.dpToPx
+import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.viewModel.WebDavViewModel
 
 class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
     private lateinit var mViewModel: WebDavViewModel
+    private val mSyncMethods: Array<String> by lazy { resources.getStringArray(R.array.label_sync_methods) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
@@ -27,35 +36,87 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
     }
 
     override fun initViews() {
+        initBackButton()
         initSubmitButton()
         initSyncWayAutoCompleteTextView()
+        initSyncMethodViews()
     }
 
     private fun initSyncWayAutoCompleteTextView() {
-        val items = resources.getStringArray(R.array.label_sync_ways)
-        val adapter = ArrayAdapter(this, R.layout.item_settings_sync_way, items)
+        val adapter = ArrayAdapter(this, R.layout.item_settings_sync_way, mSyncMethods)
         mBinding.syncAutoCompleteTextView.setAdapter(adapter)
-        mBinding.syncAutoCompleteTextView.setText(items[0], false)
+
+        when (MMKV.mmkvWithID(KEY_SYNC_SETTINGS)
+            .getString(KEY_SYNC_METHOD, VALUE_SYNC_METHOD_NONE)) {
+            VALUE_SYNC_METHOD_NONE -> {
+                mBinding.syncAutoCompleteTextView.setText(mSyncMethods[0], false)
+            }
+
+            VALUE_SYNC_METHOD_WEBDAV -> {
+                mBinding.syncAutoCompleteTextView.setText(mSyncMethods[1], false)
+            }
+        }
+        mBinding.syncAutoCompleteTextView.addTextChangedListener {
+            initSyncMethodViews(it.toString())
+        }
     }
 
     private fun initSubmitButton() {
         mBinding.submitButton.setOnClickListener {
-            saveWebDavAccount()
+            when (mBinding.syncAutoCompleteTextView.text.toString()) {
+                mSyncMethods[0] -> {
+                    MMKV.mmkvWithID(KEY_SYNC_SETTINGS)
+                        .putString(KEY_SYNC_METHOD, VALUE_SYNC_METHOD_NONE)
+                }
+
+                mSyncMethods[1] -> {
+                    if (trySaveWebDavAccount()) {
+                        MMKV.mmkvWithID(KEY_SYNC_SETTINGS)
+                            .putString(KEY_SYNC_METHOD, VALUE_SYNC_METHOD_WEBDAV)
+                    }
+                }
+            }
+            Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun saveWebDavAccount() {
+    private fun trySaveWebDavAccount(): Boolean {
         val account = mBinding.accountEditText.text.toString()
         if (account.isEmpty()) {
             Toast.makeText(this@SettingsActivity, "账号不能为空", Toast.LENGTH_SHORT).show()
-            return
+            return false
         }
         val password = mBinding.passwordEditText.text.toString()
         if (password.isEmpty()) {
             Toast.makeText(this@SettingsActivity, "密码不能为空", Toast.LENGTH_SHORT).show()
-            return
+            return false
         }
         mViewModel.saveWebDavAccount(account, password)
+        return true
     }
 
+    private fun initBackButton() {
+        mBinding.backButton.setRoundedOutlineProvider(20f.dpToPx())
+        mBinding.backButton.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun initSyncMethodViews(method: String = "") {
+        val syncMethod = method.ifEmpty {
+            MMKV.mmkvWithID(KEY_SYNC_SETTINGS)
+                .getString(KEY_SYNC_METHOD, VALUE_SYNC_METHOD_NONE)
+        }
+        when (syncMethod) {
+            VALUE_SYNC_METHOD_NONE -> {
+                mBinding.syncNoneNoticeTextView.visibility = View.VISIBLE
+                mBinding.layerWebdav.visibility = View.GONE
+            }
+
+            VALUE_SYNC_METHOD_WEBDAV -> {
+                mBinding.syncNoneNoticeTextView.visibility = View.GONE
+                mBinding.layerWebdav.visibility = View.VISIBLE
+            }
+        }
+    }
 }

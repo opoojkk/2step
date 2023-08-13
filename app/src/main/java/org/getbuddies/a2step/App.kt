@@ -2,17 +2,13 @@ package org.getbuddies.a2step
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.tencent.mmkv.MMKV
-import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_ENABLED
-import org.getbuddies.a2step.consts.WebDavMMKVs.WEBDAV_KEY
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_METHOD
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_SETTINGS
+import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_NONE
 import org.getbuddies.a2step.worker.BackupWorker
 import java.util.concurrent.TimeUnit
 
@@ -27,10 +23,12 @@ class App : Application() {
     }
 
     private fun startWorkManager() {
-        val webDavEnabled = MMKV.mmkvWithID(WEBDAV_KEY).getBoolean(WEBDAV_ENABLED, false)
-        if (!webDavEnabled) {
+        val syncMethod =
+            MMKV.mmkvWithID(KEY_SYNC_SETTINGS).getString(KEY_SYNC_METHOD, VALUE_SYNC_METHOD_NONE)
+        if (syncMethod == VALUE_SYNC_METHOD_NONE) {
             return
         }
+        // webdav is the only sync method now
         val workRequest: WorkRequest =
             PeriodicWorkRequestBuilder<BackupWorker>(90, TimeUnit.SECONDS)
                 .build()
