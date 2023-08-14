@@ -1,12 +1,15 @@
 package org.getbuddies.a2step.ui.totp
 
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityInputManualBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.totp.TotpGenerator
@@ -36,26 +39,17 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
         mBinding.submitButton.setOnClickListener {
             val name = mBinding.nameInputEdit.text.toString()
             if (name.isEmpty()) {
-                Toast.makeText(
-                    this@InputManualActivity,
-                    "请输入两步验证账号名称",
-                    Toast.LENGTH_SHORT
-                ).show()
+                setTextViewError(mBinding.nameInputEdit, R.string.error_totp_input_name)
                 return@setOnClickListener
             }
             val account = mBinding.accountInputEdit.text.toString()
             if (account.isEmpty()) {
-                Toast.makeText(
-                    this@InputManualActivity,
-                    "请输入两步验证账号",
-                    Toast.LENGTH_SHORT
-                ).show()
+                setTextViewError(mBinding.accountInputEdit, R.string.error_totp_input_account)
                 return@setOnClickListener
             }
             val secret = mBinding.secretInputEdit.text.toString()
             if (secret.isEmpty()) {
-                Toast.makeText(this@InputManualActivity, "请输入两步验证密钥", Toast.LENGTH_SHORT)
-                    .show()
+                setTextViewError(mBinding.secretInputEdit, R.string.error_totp_input_secret)
                 return@setOnClickListener
             }
             try {
@@ -63,7 +57,7 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
             } catch (e: Exception) {
                 Toast.makeText(
                     this@InputManualActivity,
-                    "请检查输入的两步验证秘钥",
+                    R.string.toast_totp_check_secret,
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -75,6 +69,11 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
                 finish()
             }
         }
+    }
+
+    private fun setTextViewError(textView: TextView, @StringRes errorRes: Int) {
+        textView.requestFocus()
+        textView.error = getString(errorRes)
     }
 
     private fun initBackButton() {
