@@ -25,4 +25,5 @@
     <string name="label_settings_sync_method">同步方式</string>
     <string name="text_settings_sync_save">保存</string>
     <string name="label_settings_sync_none_notice"><b>注意：</b>\n当前同步是<b>关闭</b>状态，这意味着不会将客户端的数据同步到其他服务中。\n若您主动清除APP数据您的数据将会丢失！</string>
+    <string name="toast_camera_permission_denied">您拒绝了相机权限，无法通过扫码添加</string>
 </resources>

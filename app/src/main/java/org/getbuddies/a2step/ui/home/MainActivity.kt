@@ -1,5 +1,6 @@
 package org.getbuddies.a2step.ui.home
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
@@ -111,15 +114,36 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         speedDialView.setOnActionSelectedListener { actionItem ->
             when (actionItem.id) {
                 R.id.fab_input_scan -> {
+                    speedDialView.close()
                     startActivity(Intent(this, InputManualActivity::class.java))
                 }
 
                 R.id.fab_input_manual -> {
-                    startActivity(Intent(this, ScanTotpActivity::class.java))
+                    speedDialView.close()
+                    checkCameraPermissionAndScan()
                 }
             }
-            false
+            true
         }
+    }
+
+    private fun checkCameraPermissionAndScan() {
+        if (PermissionX.isGranted(this, Manifest.permission.CAMERA)) {
+            startActivity(Intent(this, ScanTotpActivity::class.java))
+            return
+        }
+        PermissionX.init(this).permissions(Manifest.permission.CAMERA)
+            .request { allGranted, _, deniedList ->
+                if (allGranted) {
+                    startActivity(Intent(this, ScanTotpActivity::class.java))
+                } else {
+                    Toast.makeText(
+                        this,
+                        R.string.toast_camera_permission_denied,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     private fun initMenu() {

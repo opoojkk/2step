@@ -1,11 +1,9 @@
 package org.getbuddies.a2step.ui.totp
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.databinding.ActivityScanTotpBinding
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 
@@ -44,25 +42,14 @@ class ScanTotpActivity : ViewBindingActivity<ActivityScanTotpBinding>() {
         })
     }
 
-    private fun checkPermissionAndSpot() {
-        if (PermissionX.isGranted(this, Manifest.permission.CAMERA)) {
-            mZXingView.startSpot()
-            return
-        }
-        PermissionX.init(this).permissions(Manifest.permission.CAMERA)
-            .request { allGranted, _, deniedList ->
-                if (allGranted) {
-                    mZXingView.startSpot()
-                } else {
-                    Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun startSpot() {
+        mZXingView.startSpot()
     }
 
 
     override fun onResume() {
         super.onResume()
-        checkPermissionAndSpot()
+        startSpot()
     }
 
     override fun onPause() {
