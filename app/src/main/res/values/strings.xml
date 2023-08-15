@@ -30,4 +30,7 @@
     <string name="error_totp_input_account">请输入两步验证账号名称</string>
     <string name="error_totp_input_secret">请输入两步验证账号秘钥</string>
     <string name="toast_totp_check_secret">请输入两步验证账号秘钥</string>
+    <string name="snackbar_totp_copy">复制成功</string>
+    <string name="toast_settings_save_success">保存成功</string>
+    <string name="toast_scan_check_camera">请检查您的设备是否支持相机模块且授予了权限</string>
 </resources>

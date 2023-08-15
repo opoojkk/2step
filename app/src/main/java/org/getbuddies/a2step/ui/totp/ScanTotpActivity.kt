@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import cn.bingoogolapple.qrcode.core.QRCodeView
+import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityScanTotpBinding
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 
@@ -36,7 +37,11 @@ class ScanTotpActivity : ViewBindingActivity<ActivityScanTotpBinding>() {
             }
 
             override fun onScanQRCodeOpenCameraError() {
-                Toast.makeText(this@ScanTotpActivity, "打开相机出错", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ScanTotpActivity,
+                    R.string.toast_scan_check_camera,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })

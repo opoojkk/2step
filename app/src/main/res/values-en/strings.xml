@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">2step</string>
+    <string name="hint_totp_secret_input">Set Secret Key</string>
+    <string name="hint_totp_name_input">Name, e.g. Google</string>
+    <string name="hint_totp_account_input">Username or Email</string>
+    <string name="text_add_totp_submit">Submit</string>
+    <string name="label_input_scan">Scan QR Code</string>
+    <string name="label_input_manual">Enter Manually</string>
+    <string name="hint_search_bar">Search</string>
+    <string name="hint_server_url">webdav Server Address</string>
+    <string name="hint_server_account">Account</string>
+    <string name="hint_server_password">Password</string>
+    <string name="text_jianguo_url">https://dav.jianguoyun.com/dav</string>
+    <string name="label_settings_sync">Sync Settings</string>
+    <string name="label_settings_about">About</string>
+    <string name="label_settings_license">Open Source License</string>
+    <string name="label_settings_sync_NONE">None</string>
+    <string name="label_settings_sync_webdav">WebDAV</string>
+    <string name="label_settings_sync_onedrive">OneDrive</string>
+    <string name="label_settings_sync_google_drive">Google Drive</string>
+    <string-array name="label_sync_methods">
+        <item>@string/label_settings_sync_NONE</item>
+        <item>@string/label_settings_sync_webdav</item>
+    </string-array>
+    <string name="label_settings_sync_method">Sync Method</string>
+    <string name="text_settings_sync_save">Save</string>
+    <string name="label_settings_sync_none_notice"><b>Note:</b>\nCurrent sync is <b>OFF</b>, meaning that client data will not be synchronized with other services.\nIf you clear the APP data actively, your data will be lost!</string>
+    <string name="toast_camera_permission_denied">You have denied camera permission, cannot add by scanning</string>
+    <string name="error_totp_input_name">Two-step verification account name cannot be empty</string>
+    <string name="error_totp_input_account">Please enter two-step verification account name</string>
+    <string name="error_totp_input_secret">Please enter two-step verification account secret key</string>
+    <string name="toast_totp_check_secret">Please enter two-step verification account secret key</string>
+    <string name="snackbar_totp_copy">Copy Successful</string>
+    <string name="toast_settings_save_success">Save Successful</string>
+    <string name="toast_scan_check_camera">Please check if your device supports the camera module and has granted permission</string>
+</resources>

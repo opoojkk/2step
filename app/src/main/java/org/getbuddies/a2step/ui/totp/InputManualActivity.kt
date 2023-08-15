@@ -14,6 +14,7 @@ import org.getbuddies.a2step.databinding.ActivityInputManualBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
+import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextViewFocusedError
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.TotpViewModel
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
@@ -39,17 +40,17 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
         mBinding.submitButton.setOnClickListener {
             val name = mBinding.nameInputEdit.text.toString()
             if (name.isEmpty()) {
-                setTextViewError(mBinding.nameInputEdit, R.string.error_totp_input_name)
+                mBinding.nameInputEdit.setTextViewFocusedError(R.string.error_totp_input_name)
                 return@setOnClickListener
             }
             val account = mBinding.accountInputEdit.text.toString()
             if (account.isEmpty()) {
-                setTextViewError(mBinding.accountInputEdit, R.string.error_totp_input_account)
+                mBinding.accountInputEdit.setTextViewFocusedError(R.string.error_totp_input_account)
                 return@setOnClickListener
             }
             val secret = mBinding.secretInputEdit.text.toString()
             if (secret.isEmpty()) {
-                setTextViewError(mBinding.secretInputEdit, R.string.error_totp_input_secret)
+                mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_input_secret)
                 return@setOnClickListener
             }
             try {

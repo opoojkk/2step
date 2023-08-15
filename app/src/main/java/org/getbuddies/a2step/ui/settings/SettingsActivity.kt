@@ -14,6 +14,7 @@ import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_NONE
 import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_WEBDAV
 import org.getbuddies.a2step.databinding.ActivitySettingsBinding
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
+import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextViewFocusedError
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.viewModel.WebDavViewModel
@@ -76,19 +77,19 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
                     }
                 }
             }
-            Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.toast_settings_save_success, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun trySaveWebDavAccount(): Boolean {
         val account = mBinding.accountEditText.text.toString()
         if (account.isEmpty()) {
-            Toast.makeText(this@SettingsActivity, "账号不能为空", Toast.LENGTH_SHORT).show()
+            mBinding.accountEditText.setTextViewFocusedError(R.string.error_totp_input_account)
             return false
         }
         val password = mBinding.passwordEditText.text.toString()
         if (password.isEmpty()) {
-            Toast.makeText(this@SettingsActivity, "密码不能为空", Toast.LENGTH_SHORT).show()
+            mBinding.accountEditText.setTextViewFocusedError(R.string.error_totp_input_secret)
             return false
         }
         mViewModel.saveWebDavAccount(account, password)
