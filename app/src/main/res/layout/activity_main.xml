@@ -12,61 +12,20 @@
         android:layout_height="wrap_content"
         app:layout_scrollFlags="scroll|enterAlways">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.search.SearchBar
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="15dp"
-            android:background="#ECE7F3">
-
-            <ImageButton
-                android:id="@+id/search_bar_menu_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginStart="5dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/icon_search_bar_menu"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/search_bar_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="@null"
-                android:hint="@string/hint_search_bar"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:lines="1"
-                android:maxLines="1"
-                android:textColorHint="#666666"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/search_bar_clear_icon"
-                app:layout_constraintStart_toEndOf="@+id/search_bar_menu_icon"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_goneMarginEnd="6dp" />
-
-            <ImageButton
-                android:id="@+id/search_bar_clear_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="6dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:padding="8dp"
-                android:src="@drawable/icon_search_bar_clear"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:hint="@string/hint_search_bar" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@id/search_bar">
+        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+    </com.google.android.material.search.SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/totp_recycler_view"

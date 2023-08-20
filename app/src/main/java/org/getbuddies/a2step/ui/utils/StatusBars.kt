@@ -14,7 +14,7 @@ object StatusBars {
         fixStatusBarMargin(root)
     }
 
-    fun transparentStatusBar(window: Window) {
+    private fun transparentStatusBar(window: Window) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         var systemUiVisibility = window.decorView.systemUiVisibility
@@ -25,6 +25,10 @@ object StatusBars {
 
         //设置状态栏文字颜色
         setStatusBarTextColor(window, isNightMode(window.context))
+    }
+
+    fun disableStatusBar(window: Window) {
+        removeStatusBarMargin(window.decorView)
     }
 
     private fun isNightMode(context: Context): Boolean {
@@ -51,10 +55,19 @@ object StatusBars {
         return context.resources.getDimensionPixelSize(resId)
     }
 
-    fun fixStatusBarMargin(vararg views: View) {
+    private fun fixStatusBarMargin(vararg views: View) {
         views.forEach { view ->
             (view.layoutParams as? ViewGroup.MarginLayoutParams)?.let { lp ->
                 lp.topMargin = lp.topMargin + getStatusBarHeight(view.context)
+                view.requestLayout()
+            }
+        }
+    }
+
+    private fun removeStatusBarMargin(vararg views: View) {
+        views.forEach { view ->
+            (view.layoutParams as? ViewGroup.MarginLayoutParams)?.let { lp ->
+                lp.topMargin = lp.topMargin - getStatusBarHeight(view.context)
                 view.requestLayout()
             }
         }

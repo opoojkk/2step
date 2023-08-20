@@ -1,6 +1,5 @@
 package org.getbuddies.a2step.ui.base
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding

@@ -1,40 +1,36 @@
 package org.getbuddies.a2step.ui.home
 
 import android.Manifest
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Rect
+import android.graphics.Color
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.updateLayoutParams
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.search.SearchView
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
-import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
-import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
-import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
-import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
-import org.getbuddies.a2step.ui.utils.ScreenUtil
+import org.getbuddies.a2step.ui.utils.StatusBars
 
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
@@ -52,16 +48,14 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         return ActivityMainBinding.inflate(layoutInflater)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun initViews() {
-        initSearchBar()
-        initMenu()
+        setSupportActionBar(mBinding.searchBar)
         initRecyclerView()
         initDialView()
-        initSearchBarEditText()
-    }
-
-    private fun initSearchBar() {
-        mBinding.searchBar.setRoundedOutlineProvider(28f.dpToPx())
+        mBinding.searchView.setStatusBarSpacerEnabled(false)
+        mBinding.searchView.addTransitionListener { searchView, previousState, newState ->
+        }
     }
 
     private fun initViewModel() {
@@ -71,7 +65,16 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun initRecyclerView() {
-        adapter.register(Totp::class.java, TotpDelegate())
+        adapter.run {
+            register(
+                Totp::class.java, TotpDelegate(
+                    object : TotpDelegate.OnLongPressListener {
+                        override fun onLongClick() {
+                            enterActionMode()
+                        }
+                    })
+            )
+        }
         adapter.items = mTotpViewModel.totpList.value ?: emptyList()
         mBinding.totpRecyclerView.adapter = adapter
         mBinding.totpRecyclerView.addItemDecoration(
@@ -133,7 +136,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             return
         }
         PermissionX.init(this).permissions(Manifest.permission.CAMERA)
-            .request { allGranted, _, deniedList ->
+            .request { allGranted, _, _ ->
                 if (allGranted) {
                     startActivity(Intent(this, ScanTotpActivity::class.java))
                 } else {
@@ -146,38 +149,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             }
     }
 
-    private fun initMenu() {
-        mBinding.searchBarMenuIcon.setRoundedOutlineProvider(20f.dpToPx())
-        mBinding.searchBarMenuIcon.setOnClickListener {
-            val tactfulDialog = TactfulDialog<DialogMainSettingsBinding>(this)
-            tactfulDialog.setContentView(DialogMainSettingsBinding.inflate(layoutInflater))
-            tactfulDialog.getViewBinding().settingsSyncText.setOnClickListener {
-                this@MainActivity.startActivity(Intent(this, SettingsActivity::class.java))
-                tactfulDialog.dismiss()
-            }
-            tactfulDialog.setCornerRadius(24f.dpToPx())
-            tactfulDialog.setWidth((ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2).toInt())
-            tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx().toInt())
-            tactfulDialog.show()
-        }
-        mBinding.searchBarClearIcon.setRoundedOutlineProvider(20f.dpToPx())
-        mBinding.searchBarClearIcon.setOnClickListener {
-            mBinding.searchBarEditText.text.clear()
-        }
-    }
-
-    private fun initSearchBarEditText() {
-        mBinding.searchBarEditText.addTextChangedListener {
-            if (it.isNullOrEmpty()) {
-                mBinding.searchBarClearIcon.visibility = View.GONE
-                queryAllTotpsFromTable()
-                return@addTextChangedListener
-            }
-            mBinding.searchBarClearIcon.visibility = View.VISIBLE
-            mTotpViewModel.queryTotpList(it.toString())
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         queryAllTotpsFromTable()
@@ -187,42 +158,32 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         mTotpViewModel.refreshTotpList()
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (ev.action == MotionEvent.ACTION_DOWN) {
-            handleTouchOutsideEditText(ev)
-        }
-        return super.dispatchTouchEvent(ev)
-    }
-
-    private fun handleTouchOutsideEditText(ev: MotionEvent) {
-        val view = currentFocus
-        if (view is EditText) {
-            val inRect = Rect()
-            mBinding.searchBarClearIcon.getGlobalVisibleRect(inRect)
-            if (isTouchEventInsideViewRect(inRect, ev)) {
-                // 点击了清除按钮
-                return
+    private fun enterActionMode() {
+        val actionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                // 通过MenuInflater填充操作栏菜单
+                val inflater: MenuInflater = mode.menuInflater
+                inflater.inflate(R.menu.example_menu, menu)
+                return true
             }
-            val outRect = Rect()
-            view.getGlobalVisibleRect(outRect)
-            if (isTouchEventOutsideViewRect(outRect, ev)) {
-                view.clearFocus()
-                hideKeyboard(view)
+
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false // 返回false，如果没有更改，不需要对ActionMode进行任何更新
+            }
+
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                // 在此处响应操作项点击
+                return when (item.itemId) {
+                    else -> false
+                }
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode) {
+                // 清除与ActionMode相关的任何状态
             }
         }
-    }
+        startActionMode(actionModeCallback)
 
-    private fun isTouchEventOutsideViewRect(outRect: Rect, ev: MotionEvent): Boolean {
-        return !outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())
-    }
-
-    private fun isTouchEventInsideViewRect(inRect: Rect, ev: MotionEvent): Boolean {
-        return inRect.contains(ev.rawX.toInt(), ev.rawY.toInt())
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }

@@ -16,11 +16,18 @@ import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.home.view.ProgressBar
 
-class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
+class TotpDelegate(onLongPressListener: OnLongPressListener) :
+    ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
+    private val mOnLongPressListener = onLongPressListener
+
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.layout_totp_item, parent, false),
-        )
+        val itemView = LayoutInflater.from(context)
+            .inflate(R.layout.layout_totp_item, parent, false)
+        itemView.setOnLongClickListener {
+            mOnLongPressListener.onLongClick();
+            true
+        }
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, item: Totp) {
@@ -49,5 +56,9 @@ class TotpDelegate : ItemViewDelegate<Totp, TotpDelegate.ViewHolder>() {
             })
             mBinding.totpProgressBar.start()
         }
+    }
+
+    interface OnLongPressListener {
+        fun onLongClick()
     }
 }
