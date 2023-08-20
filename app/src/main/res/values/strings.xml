@@ -33,4 +33,5 @@
     <string name="snackbar_totp_copy">复制成功</string>
     <string name="toast_settings_save_success">保存成功</string>
     <string name="toast_scan_check_camera">请检查您的设备是否支持相机模块且授予了权限</string>
+    <string name="label_search_bar_options">选项</string>
 </resources>

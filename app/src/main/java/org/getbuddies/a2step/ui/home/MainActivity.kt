@@ -24,13 +24,16 @@ import com.leinardi.android.speeddial.SpeedDialView
 import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
+import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
+import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
+import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
-import org.getbuddies.a2step.ui.utils.StatusBars
+import org.getbuddies.a2step.ui.utils.ScreenUtil
 
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
@@ -61,8 +64,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private fun initViewModel() {
         mTotpViewModel.totpList.observe(this) {
             updateRecyclerView(it)
-        }
-    }
+        }    }
 
     private fun initRecyclerView() {
         adapter.run {
@@ -186,4 +188,32 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_bar_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                showSettingsDialog()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showSettingsDialog() {
+        val tactfulDialog = TactfulDialog<DialogMainSettingsBinding>(this)
+        tactfulDialog.setContentView(DialogMainSettingsBinding.inflate(layoutInflater))
+        tactfulDialog.getViewBinding().settingsSyncText.setOnClickListener {
+            this@MainActivity.startActivity(Intent(this, SettingsActivity::class.java))
+            tactfulDialog.dismiss()
+        }
+        tactfulDialog.setCornerRadius(24f.dpToPx())
+        tactfulDialog.setWidth((ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2).toInt())
+        tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx().toInt())
+        tactfulDialog.show()
+    }
 }
