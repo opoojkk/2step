@@ -34,6 +34,7 @@ import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 import org.getbuddies.a2step.ui.utils.ScreenUtil
+import org.getbuddies.a2step.ui.utils.StatusBars
 
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
@@ -58,13 +59,19 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         initDialView()
         mBinding.searchView.setStatusBarSpacerEnabled(false)
         mBinding.searchView.addTransitionListener { searchView, previousState, newState ->
+            if (newState == SearchView.TransitionState.SHOWING) {
+                StatusBars.setStatusBarAndNavigationBarColor(window, Color.parseColor("#EEE5F5"))
+            } else if (newState == SearchView.TransitionState.HIDDEN) {
+                StatusBars.setStatusBarAndNavigationBarColor(window, Color.TRANSPARENT)
+            }
         }
     }
 
     private fun initViewModel() {
         mTotpViewModel.totpList.observe(this) {
             updateRecyclerView(it)
-        }    }
+        }
+    }
 
     private fun initRecyclerView() {
         adapter.run {

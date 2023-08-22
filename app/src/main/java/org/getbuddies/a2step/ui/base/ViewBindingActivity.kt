@@ -3,7 +3,6 @@ package org.getbuddies.a2step.ui.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import org.getbuddies.a2step.ui.utils.NavigationBars
 import org.getbuddies.a2step.ui.utils.StatusBars
 
 abstract class ViewBindingActivity<T : ViewBinding> : AppCompatActivity() {
@@ -13,9 +12,8 @@ abstract class ViewBindingActivity<T : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = getViewBinding()
         setContentView(mBinding.root)
+        StatusBars.configStatusBar(window)
         initViews()
-        StatusBars.configStatusBar(window, mBinding.root)
-        NavigationBars.fixNavBarMargin(mBinding.root)
     }
 
     abstract fun getViewBinding(): T
