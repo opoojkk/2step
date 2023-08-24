@@ -9,6 +9,8 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewStub
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.updateLayoutParams
@@ -42,6 +44,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         ViewModelProvider(this)[TotpViewModel::class.java]
     }
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
+    private var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,19 +55,11 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         return ActivityMainBinding.inflate(layoutInflater)
     }
 
-    @SuppressLint("RestrictedApi")
     override fun initViews() {
         setSupportActionBar(mBinding.searchBar)
         initRecyclerView()
         initDialView()
-        mBinding.searchView.setStatusBarSpacerEnabled(false)
-        mBinding.searchView.addTransitionListener { searchView, previousState, newState ->
-            if (newState == SearchView.TransitionState.SHOWING) {
-                StatusBars.setStatusBarAndNavigationBarColor(window, Color.parseColor("#EEE5F5"))
-            } else if (newState == SearchView.TransitionState.HIDDEN) {
-                StatusBars.setStatusBarAndNavigationBarColor(window, Color.TRANSPARENT)
-            }
-        }
+        initSearchView()
     }
 
     private fun initViewModel() {
@@ -77,10 +72,17 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         adapter.run {
             register(
                 Totp::class.java, TotpDelegate(
-                    object : TotpDelegate.OnLongPressListener {
-                        override fun onLongClick() {
+                    object : TotpDelegate.EditStateListener {
+                        override fun onSelected() {
+                            // 添加到已选列表
                             enterActionMode()
                         }
+
+                        override fun onUnselected() {
+                            // 从已选列表中移除
+                            exitActionMode()
+                        }
+
                     })
             )
         }
@@ -98,6 +100,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         mBinding.totpRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateRecyclerView(totps: List<Totp>) {
         adapter.items = totps
         adapter.notifyDataSetChanged()
@@ -170,14 +173,15 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private fun enterActionMode() {
         val actionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                // 通过MenuInflater填充操作栏菜单
                 val inflater: MenuInflater = mode.menuInflater
                 inflater.inflate(R.menu.example_menu, menu)
                 return true
             }
 
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false // 返回false，如果没有更改，不需要对ActionMode进行任何更新
+                StatusBars.setStatusBarColor(window, getColor(R.color.action_bar_color))
+                supportActionBar?.hide()
+                return true
             }
 
             override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
@@ -188,11 +192,15 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             }
 
             override fun onDestroyActionMode(mode: ActionMode) {
-                // 清除与ActionMode相关的任何状态
+                StatusBars.setStatusBarColor(window, Color.TRANSPARENT)
+                supportActionBar?.show()
             }
         }
-        startActionMode(actionModeCallback)
+        actionMode = startActionMode(actionModeCallback)
+    }
 
+    private fun exitActionMode() {
+        actionMode?.finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -222,5 +230,17 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         tactfulDialog.setWidth((ScreenUtil.getScreenWidth() - 15f.dpToPx() * 2).toInt())
         tactfulDialog.setAnchorView(mBinding.searchBar, offsetY = 15f.dpToPx().toInt())
         tactfulDialog.show()
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun initSearchView() {
+        mBinding.searchView.setStatusBarSpacerEnabled(false)
+        mBinding.searchView.addTransitionListener { _, _, newState ->
+            if (newState == SearchView.TransitionState.SHOWING) {
+                StatusBars.setStatusBarAndNavigationBarColor(window, getColor(R.color.surface_on))
+            } else if (newState == SearchView.TransitionState.HIDDEN) {
+                StatusBars.setStatusBarAndNavigationBarColor(window, Color.TRANSPARENT)
+            }
+        }
     }
 }

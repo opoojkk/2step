@@ -32,4 +32,6 @@
     <color name="md_theme_scrim">#000000</color>
 
     <color name="white">#ffffff</color>
+    <color name="surface_on">#EEE5F5</color>
+    <color name="action_bar_color">#f2eaf8</color>
 </resources>
