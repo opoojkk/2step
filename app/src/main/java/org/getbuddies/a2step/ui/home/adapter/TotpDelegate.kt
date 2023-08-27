@@ -42,6 +42,8 @@ class TotpDelegate(editStateListener: EditStateListener) :
         private val mEditStateListener = editStateListener
         private var mEditState = EditState.NORMAL
 
+        private var mTotp: Totp? = null
+
         init {
             mBinding = LayoutTotpItemBinding.bind(itemView)
             itemView.setRoundedOutlineProvider(20f.dpToPx())
@@ -53,7 +55,8 @@ class TotpDelegate(editStateListener: EditStateListener) :
                     }
 
                     EditState.SELECTED -> {
-                        mEditStateListener.onUnselected()
+                        mEditStateListener.onUnselected(mTotp ?: Totp.DEFAULT)
+                        itemView.setBackgroundColor(Color.TRANSPARENT)
                         setEditState(EditState.NORMAL)
                     }
                 }
@@ -61,13 +64,13 @@ class TotpDelegate(editStateListener: EditStateListener) :
             itemView.setOnLongClickListener {
                 when (getEditState()) {
                     EditState.NORMAL -> {
-                        mEditStateListener.onSelected()
+                        mEditStateListener.onSelected(mTotp ?: Totp.DEFAULT)
                         itemView.setBackgroundColor(it.context.getColor(R.color.surface_on))
                         setEditState(EditState.SELECTED)
                     }
 
                     EditState.SELECTED -> {
-                        mEditStateListener.onUnselected()
+                        mEditStateListener.onUnselected(mTotp ?: Totp.DEFAULT)
                         itemView.setBackgroundColor(Color.TRANSPARENT)
                         setEditState(EditState.NORMAL)
                     }
@@ -77,6 +80,7 @@ class TotpDelegate(editStateListener: EditStateListener) :
         }
 
         fun bind(item: Totp) {
+            mTotp = item
             mBinding.totpName.text = item.name
             mBinding.totpAccount.text = item.account
             mBinding.totpProgressBar.setOnProgressListener(object : ProgressBar.OnProgressListener {
@@ -89,6 +93,7 @@ class TotpDelegate(editStateListener: EditStateListener) :
 
         fun reset() {
             mEditState = EditState.NORMAL
+            itemView.setBackgroundColor(Color.TRANSPARENT)
         }
 
         fun getEditState(): EditState {
@@ -98,10 +103,14 @@ class TotpDelegate(editStateListener: EditStateListener) :
         fun setEditState(state: EditState) {
             mEditState = state
         }
+
+        fun getTotp(): Totp? {
+            return mTotp
+        }
     }
 
     interface EditStateListener {
-        fun onSelected()
-        fun onUnselected()
+        fun onSelected(totp: Totp)
+        fun onUnselected(totp: Totp)
     }
 }

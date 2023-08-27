@@ -9,8 +9,6 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewStub
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.updateLayoutParams
@@ -32,6 +30,8 @@ import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
+import org.getbuddies.a2step.ui.home.viewModel.TotpEditViewModel
+import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
 import org.getbuddies.a2step.ui.settings.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
@@ -43,12 +43,26 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private val mTotpViewModel by lazy {
         ViewModelProvider(this)[TotpViewModel::class.java]
     }
+    private val mTotpEditViewModel by lazy {
+        ViewModelProvider(this)[TotpEditViewModel::class.java]
+    }
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
     private var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
+        mTotpEditViewModel.observe(this) {
+            // selected list is empty that means exit action mode
+            if (it.isEmpty()) {
+                exitActionMode()
+                return@observe
+            }
+            // do not exit action mode, just check whether action mode is null
+            if (actionMode == null) {
+                enterActionMode()
+            }
+        }
     }
 
     override fun getViewBinding(): ActivityMainBinding {
@@ -73,14 +87,18 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             register(
                 Totp::class.java, TotpDelegate(
                     object : TotpDelegate.EditStateListener {
-                        override fun onSelected() {
-                            // 添加到已选列表
-                            enterActionMode()
+                        override fun onSelected(totp: Totp) {
+                            if (totp == Totp.DEFAULT) {
+                                return
+                            }
+                            mTotpEditViewModel.add(totp)
                         }
 
-                        override fun onUnselected() {
-                            // 从已选列表中移除
-                            exitActionMode()
+                        override fun onUnselected(totp: Totp) {
+                            if (totp == Totp.DEFAULT) {
+                                return
+                            }
+                            mTotpEditViewModel.remove(totp)
                         }
 
                     })
@@ -194,6 +212,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             override fun onDestroyActionMode(mode: ActionMode) {
                 StatusBars.setStatusBarColor(window, Color.TRANSPARENT)
                 supportActionBar?.show()
+                clearRecyclerViewActionMode()
             }
         }
         actionMode = startActionMode(actionModeCallback)
@@ -201,6 +220,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun exitActionMode() {
         actionMode?.finish()
+        actionMode = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -241,6 +261,27 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             } else if (newState == SearchView.TransitionState.HIDDEN) {
                 StatusBars.setStatusBarAndNavigationBarColor(window, Color.TRANSPARENT)
             }
+        }
+    }
+
+    private fun clearRecyclerViewActionMode() {
+        if (mTotpEditViewModel.isEmpty()) {
+            return
+        }
+        val linearLayoutManager = mBinding.totpRecyclerView.layoutManager as LinearLayoutManager
+        for (i in linearLayoutManager.findFirstVisibleItemPosition()..linearLayoutManager.findLastVisibleItemPosition()) {
+            val view = linearLayoutManager.findViewByPosition(i)
+            // 这里操作view
+            view ?: continue
+            val holder =
+                mBinding.totpRecyclerView.getChildViewHolder(view) as TotpDelegate.ViewHolder
+            val totp = holder.getTotp()
+            totp ?: continue
+            if (mTotpEditViewModel.getSelectedTotpList().contains(totp)) {
+                mTotpEditViewModel.remove(totp)
+                holder.reset()
+            }
+
         }
     }
 }

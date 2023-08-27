@@ -16,7 +16,7 @@ import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextViewFocusedError
 import org.getbuddies.a2step.ui.extendz.dpToPx
-import org.getbuddies.a2step.ui.home.TotpViewModel
+import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 
 class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
