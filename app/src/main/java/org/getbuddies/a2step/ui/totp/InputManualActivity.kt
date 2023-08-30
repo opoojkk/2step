@@ -37,6 +37,7 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     }
 
     private fun initSubmitButton() {
+        mBinding.submitButton.setRoundedOutlineProvider(18f.dpToPx())
         mBinding.submitButton.setOnClickListener {
             val name = mBinding.nameInputEdit.text.toString()
             if (name.isEmpty()) {

@@ -63,6 +63,7 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
     }
 
     private fun initSubmitButton() {
+        mBinding.submitButton.setRoundedOutlineProvider(18f.dpToPx())
         mBinding.submitButton.setOnClickListener {
             when (mBinding.syncAutoCompleteTextView.text.toString()) {
                 mSyncMethods[0] -> {

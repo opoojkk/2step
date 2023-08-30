@@ -30,11 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
+        <TextView
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_settings_sync_save" />
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="@string/text_settings_sync_save"
+            android:textColor="#333333"
+            android:textSize="16dp" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
