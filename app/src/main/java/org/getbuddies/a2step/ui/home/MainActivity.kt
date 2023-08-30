@@ -198,7 +198,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
                 StatusBars.setStatusBarColor(window, getColor(R.color.action_bar_color))
-                supportActionBar?.hide()
                 return true
             }
 
@@ -211,7 +210,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
             override fun onDestroyActionMode(mode: ActionMode) {
                 StatusBars.setStatusBarColor(window, Color.TRANSPARENT)
-                supportActionBar?.show()
                 clearRecyclerViewActionMode()
             }
         }
