@@ -101,6 +101,15 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
                             mTotpEditViewModel.remove(totp)
                         }
 
+                        override fun onModify(totp: Totp) {
+                            // TODO: not implemented yet
+                        }
+
+                        override fun onDelete(totp: Totp) {
+                            mTotpViewModel.remove(totp)
+                            adapter.notifyItemRemoved(adapter.items.indexOf(totp))
+                        }
+
                     })
             )
         }

@@ -14,10 +14,19 @@ import org.getbuddies.a2step.db.totp.entity.Totp
 
 class TotpViewModel : ViewModel() {
     private val mTotpDao: TotpDao = DataBases.get(TotpDataBase::class.java).totpDao()
-    val totpList = MutableLiveData<List<Totp>>()
+    val totpList = MutableLiveData<ArrayList<Totp>>()
 
     fun insert(totp: Totp) {
         mTotpDao.insert(totp)
+    }
+
+    fun remove(totp: Totp) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                mTotpDao.delete(totp.name, totp.account)
+            }
+        }
+        totpList.value?.remove(totp)
     }
 
     fun refreshTotpList() {
@@ -41,7 +50,7 @@ class TotpViewModel : ViewModel() {
     private fun updateTotpList(newTotpList: List<Totp>?) {
         newTotpList ?: return
         totpList.value ?: let {
-            totpList.postValue(newTotpList)
+            totpList.postValue(ArrayList(newTotpList))
             return
         }
         val oldSize = totpList.value!!.size
@@ -50,6 +59,6 @@ class TotpViewModel : ViewModel() {
         if (oldSize == newSize && totpList.value!!.containsAll(newTotpList)) {
             return
         }
-        totpList.postValue(newTotpList)
+        totpList.postValue(ArrayList(newTotpList))
     }
 }

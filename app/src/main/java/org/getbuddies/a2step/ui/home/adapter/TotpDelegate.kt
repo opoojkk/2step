@@ -2,9 +2,11 @@ package org.getbuddies.a2step.ui.home.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewDelegate
 import com.google.android.material.snackbar.Snackbar
@@ -61,12 +63,37 @@ class TotpDelegate(editStateListener: EditStateListener) :
                     }
                 }
             }
-            itemView.setOnLongClickListener {
+            itemView.setOnLongClickListener { it ->
                 when (getEditState()) {
                     EditState.NORMAL -> {
-                        mEditStateListener.onSelected(mTotp ?: Totp.DEFAULT)
-                        itemView.setBackgroundColor(it.context.getColor(R.color.surface_on))
-                        setEditState(EditState.SELECTED)
+                        val popupMenu = PopupMenu(it.context, it)
+                        popupMenu.inflate(R.menu.totp_long_press_options)
+                        popupMenu.gravity = Gravity.END
+                        popupMenu.show()
+                        popupMenu.setOnMenuItemClickListener {
+                            when (it.itemId) {
+                                R.id.menu_item_totp_modify -> {
+                                    mEditStateListener.onModify(mTotp ?: Totp.DEFAULT)
+                                    return@setOnMenuItemClickListener true
+                                }
+
+                                R.id.menu_item_totp_delete -> {
+                                    mEditStateListener.onDelete(mTotp ?: Totp.DEFAULT)
+                                    return@setOnMenuItemClickListener true
+                                }
+
+                                R.id.menu_item_totp_select -> {
+                                    mEditStateListener.onSelected(mTotp ?: Totp.DEFAULT)
+                                    itemView.setBackgroundColor(itemView.context.getColor(R.color.surface_on))
+                                    setEditState(EditState.SELECTED)
+                                    return@setOnMenuItemClickListener true
+                                }
+
+                                else -> {
+                                    return@setOnMenuItemClickListener false
+                                }
+                            }
+                        }
                     }
 
                     EditState.SELECTED -> {
@@ -110,7 +137,13 @@ class TotpDelegate(editStateListener: EditStateListener) :
     }
 
     interface EditStateListener {
+        // call when item is selected
         fun onSelected(totp: Totp)
+
+        // call when item is unselected
         fun onUnselected(totp: Totp)
+
+        fun onModify(totp: Totp)
+        fun onDelete(totp: Totp)
     }
 }
