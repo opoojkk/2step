@@ -26,6 +26,7 @@ import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.ActivityMainBinding
 import org.getbuddies.a2step.databinding.DialogMainSettingsBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.extends.startActivity
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.custom.TactfulDialog
 import org.getbuddies.a2step.ui.extendz.dpToPx
@@ -102,7 +103,9 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
                         }
 
                         override fun onModify(totp: Totp) {
-                            // TODO: not implemented yet
+                            startActivity(InputManualActivity::class.java) {
+                                putExtra(InputManualActivity.EXTRA_TOTP_KEY, totp)
+                            }
                         }
 
                         override fun onDelete(totp: Totp) {

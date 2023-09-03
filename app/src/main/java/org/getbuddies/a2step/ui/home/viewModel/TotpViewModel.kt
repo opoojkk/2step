@@ -16,8 +16,20 @@ class TotpViewModel : ViewModel() {
     private val mTotpDao: TotpDao = DataBases.get(TotpDataBase::class.java).totpDao()
     val totpList = MutableLiveData<ArrayList<Totp>>()
 
-    fun insert(totp: Totp) {
-        mTotpDao.insert(totp)
+    fun insertOrReplace(totp: Totp, old: Totp = Totp.DEFAULT) {
+        if (old == Totp.DEFAULT) {
+            mTotpDao.insert(totp)
+            return
+        }
+        if (old == totp) {
+            return
+        }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                mTotpDao.delete(old.name, old.account)
+                mTotpDao.insert(totp)
+            }
+        }
     }
 
     fun remove(totp: Totp) {

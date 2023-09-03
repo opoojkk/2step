@@ -1,9 +1,6 @@
 package org.getbuddies.a2step.ui.totp
 
-import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -22,11 +19,6 @@ import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     private val mTotpViewModel by lazy { ViewModelProvider(this)[TotpViewModel::class.java] }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViews()
-    }
-
     override fun getViewBinding(): ActivityInputManualBinding {
         return ActivityInputManualBinding.inflate(layoutInflater)
     }
@@ -34,6 +26,7 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     override fun initViews() {
         initBackButton()
         initSubmitButton()
+        initEditTexts()
     }
 
     private fun initSubmitButton() {
@@ -66,16 +59,12 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
             }
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    mTotpViewModel.insert(Totp(name, account, secret))
+                    val old = intent.extras?.getParcelable<Totp>(EXTRA_TOTP_KEY) ?: Totp.DEFAULT
+                    mTotpViewModel.insertOrReplace(Totp(name, account, secret), old)
                 }
                 finish()
             }
         }
-    }
-
-    private fun setTextViewError(textView: TextView, @StringRes errorRes: Int) {
-        textView.requestFocus()
-        textView.error = getString(errorRes)
     }
 
     private fun initBackButton() {
@@ -83,5 +72,17 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
         mBinding.backButton.setOnClickListener {
             finish()
         }
+    }
+
+    private fun initEditTexts() {
+        val extras = intent.extras ?: return
+        val totp = extras.getParcelable<Totp>(EXTRA_TOTP_KEY) ?: return
+        mBinding.nameInputEdit.setText(totp.name)
+        mBinding.accountInputEdit.setText(totp.account)
+        mBinding.secretInputEdit.setText(totp.secret)
+    }
+
+    companion object {
+        const val EXTRA_TOTP_KEY = "extra_totp_key"
     }
 }
