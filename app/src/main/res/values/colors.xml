@@ -1,4 +1,4 @@
-<resources>d
+<resources>
     <color name="seed">#6750A4</color>
     <color name="md_theme_primary">#6750A4</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
@@ -34,4 +34,5 @@
     <color name="white">#ffffff</color>
     <color name="surface_on">#EEE5F5</color>
     <color name="action_bar_color">#f2eaf8</color>
+    <color name="bg_speed_dial_expand">#80E7E0EC</color>
 </resources>

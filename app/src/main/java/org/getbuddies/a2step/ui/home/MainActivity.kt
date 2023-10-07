@@ -9,17 +9,13 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.search.SearchView
-import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.R
@@ -138,24 +134,8 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun initDialView() {
         val speedDialView: SpeedDialView = mBinding.speedDial
-        speedDialView.findViewById<FloatingActionButton>(com.leinardi.android.speeddial.R.id.sd_main_fab)
-            .updateLayoutParams<LinearLayout.LayoutParams> {
-                topMargin = 0
-                bottomMargin = 0
-                leftMargin = 0
-                rightMargin = 0
-            }
         // 添加子菜单
-        speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(R.id.fab_input_scan, R.drawable.icon_input_keybroad)
-                .setLabel(R.string.label_input_manual)
-                .create()
-        )
-        speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(R.id.fab_input_manual, R.drawable.icon_input_scan)
-                .setLabel(R.string.label_input_scan)
-                .create()
-        )
+        speedDialView.inflate(R.menu.add_totp_options)
         speedDialView.setOnActionSelectedListener { actionItem ->
             when (actionItem.id) {
                 R.id.fab_input_scan -> {

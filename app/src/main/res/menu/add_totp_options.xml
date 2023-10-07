@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fab_input_scan"
+        android:icon="@drawable/icon_input_keybroad"
+        android:title="@string/label_input_manual" />
+    <item
+        android:id="@+id/fab_input_manual"
+        android:icon="@drawable/icon_input_scan"
+        android:title="@string/label_input_scan" />
+</menu>

@@ -33,15 +33,6 @@
         <item name="android:windowActionModeOverlay">true</item>
     </style>
 
-    <style name="AppTheme.FloatingActionButton2" parent="AppTheme">
-        <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
-    </style>
-
-    <!-- 创建一个新的样式继承自 M2 的 FAB 样式 -->
-    <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
-        <!-- 在这里你可以自定义你想要的属性 -->
-    </style>
-
     <style name="AppTheme.ActionMode" parent="Widget.Material3.ActionMode">
         <item name="height">78dp</item>
     </style>

@@ -67,6 +67,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
+    implementation 'com.github.opoojkk:material-speed-dial:1.0.0'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
     // sardine-android
     implementation 'com.github.thegrizzlylabs:sardine-android:0.8'
