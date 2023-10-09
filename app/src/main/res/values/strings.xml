@@ -34,4 +34,8 @@
     <string name="toast_settings_save_success">保存成功</string>
     <string name="toast_scan_check_camera">请检查您的设备是否支持相机模块且授予了权限</string>
     <string name="label_search_bar_options">选项</string>
+    <string name="title_bottom_nav_menu_home">主页</string>
+    <string name="title_bottom_nav_menu_profile">我的</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

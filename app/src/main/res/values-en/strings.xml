@@ -35,4 +35,6 @@
     <string name="toast_settings_save_success">Save Successful</string>
     <string name="toast_scan_check_camera">Please check if your device supports the camera module and has granted permission</string>
     <string name="label_search_bar_options">options</string>
+    <string name="title_bottom_nav_menu_home">home</string>
+    <string name="title_bottom_nav_menu_profile">me</string>
 </resources>
