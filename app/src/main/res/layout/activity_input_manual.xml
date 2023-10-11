@@ -59,8 +59,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/secret_input_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="I65VU7K5ZQL7WB4E" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -111,9 +110,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/digits_input_edit"
-            android:text="@string/label_totp_digits_default"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/label_totp_digits_default" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -129,8 +128,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/period_input_edit"
-            android:text="@string/label_totp_period_default"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/label_totp_period_default" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
