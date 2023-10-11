@@ -39,26 +39,12 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerLifecycleObserver()
-        registerTotpEditViewModelObserver()
     }
 
     private fun registerLifecycleObserver() {
         lifecycle.addObserver(mFragmentContainerController)
     }
 
-    private fun registerTotpEditViewModelObserver() {
-        mTotpEditViewModel.observe(this) {
-            // selected list is empty that means exit action mode
-            if (it.isEmpty()) {
-                exitActionMode()
-                return@observe
-            }
-            // do not exit action mode, just check whether action mode is null
-            if (actionMode == null) {
-                enterActionMode()
-            }
-        }
-    }
 
     override fun getViewBinding(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
@@ -79,7 +65,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         mTotpViewModel.refreshTotpList()
     }
 
-    private fun enterActionMode() {
+    fun enterActionMode() {
         val actionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                 val inflater: MenuInflater = mode.menuInflater
@@ -107,9 +93,13 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         actionMode = startActionMode(actionModeCallback)
     }
 
-    private fun exitActionMode() {
+    fun exitActionMode() {
         actionMode?.finish()
         actionMode = null
+    }
+
+    fun isActionMode(): Boolean {
+        return actionMode != null
     }
 
     private fun clearRecyclerViewActionMode() {

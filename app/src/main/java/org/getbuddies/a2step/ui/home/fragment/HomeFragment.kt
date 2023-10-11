@@ -22,6 +22,8 @@ import com.permissionx.guolindev.PermissionX
 import org.getbuddies.a2step.R
 import org.getbuddies.a2step.databinding.FragmentBottomNavHomeBinding
 import org.getbuddies.a2step.db.totp.entity.Totp
+import org.getbuddies.a2step.extends.getActivity
+import org.getbuddies.a2step.extends.requireAppCompatActivity
 import org.getbuddies.a2step.extends.startActivity
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.MainActivity
@@ -35,10 +37,10 @@ import org.getbuddies.a2step.ui.utils.StatusBars
 class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
     private lateinit var mBinding: FragmentBottomNavHomeBinding
     private val mTotpViewModel by lazy {
-        ViewModelProvider(activity as AppCompatActivity)[TotpViewModel::class.java]
+        ViewModelProvider(requireAppCompatActivity())[TotpViewModel::class.java]
     }
     private val mTotpEditViewModel by lazy {
-        ViewModelProvider(this)[TotpEditViewModel::class.java]
+        ViewModelProvider(requireAppCompatActivity())[TotpEditViewModel::class.java]
     }
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
 
@@ -46,6 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
+        registerTotpEditViewModelObserver()
     }
 
     override fun onCreateView(
@@ -202,5 +205,35 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
             }
 
         }
+    }
+
+    private fun registerTotpEditViewModelObserver() {
+        mTotpEditViewModel.observe(this) {
+            // selected list is empty that means exit action mode
+            if (it.isEmpty()) {
+                exitActionMode()
+                return@observe
+            }
+            // do not exit action mode, just check whether action mode is null
+            if (!getActivity<MainActivity>().isActionMode()) {
+                enterActionMode()
+            }
+        }
+    }
+
+    private fun exitActionMode() {
+        val activity = activity
+        if (activity !is MainActivity) {
+            return
+        }
+        activity.exitActionMode()
+    }
+
+    private fun enterActionMode() {
+        val activity = activity
+        if (activity !is MainActivity) {
+            return
+        }
+        activity.enterActionMode()
     }
 }
