@@ -47,16 +47,6 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
                 mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_input_secret)
                 return@setOnClickListener
             }
-            try {
-                TotpGenerator.generateNow(secret)
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this@InputManualActivity,
-                    R.string.toast_totp_check_secret,
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
             val digits = mBinding.digitsInputEdit.text.toString().toInt()
             if (secret.isEmpty()) {
                 mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_check_digits)
@@ -67,9 +57,28 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
                 mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_check_period)
                 return@setOnClickListener
             }
+            try {
+                TotpGenerator.generateNow(secret)
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@InputManualActivity,
+                    R.string.toast_totp_check_secret,
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    val old = intent.extras?.getParcelable<Totp>(EXTRA_TOTP_KEY) ?: Totp.DEFAULT
+                    val extras = intent.extras!!
+                    val edit = extras.getBoolean(EXTRA_EDIT_KEY, false)
+                    if (!edit) {
+                        mTotpViewModel.insertOrReplace(
+                            Totp(name, account, secret, digits, period),
+                            Totp.DEFAULT
+                        )
+                        return@withContext
+                    }
+                    val old = extras.getParcelable<Totp>(EXTRA_TOTP_KEY) ?: Totp.DEFAULT
                     mTotpViewModel.insertOrReplace(Totp(name, account, secret, digits, period), old)
                 }
                 finish()
@@ -90,9 +99,12 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
         mBinding.nameInputEdit.setText(totp.name)
         mBinding.accountInputEdit.setText(totp.account)
         mBinding.secretInputEdit.setText(totp.secret)
+        mBinding.digitsInputEdit.setText(totp.digits.toString())
+        mBinding.periodInputEdit.setText(totp.period.toString())
     }
 
     companion object {
-        const val EXTRA_TOTP_KEY = "extra_totp_key"
+        const val EXTRA_TOTP_KEY = "extra_key_totp"
+        const val EXTRA_EDIT_KEY = "extra_key_edit"
     }
 }

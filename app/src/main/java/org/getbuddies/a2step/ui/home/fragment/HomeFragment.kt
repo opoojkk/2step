@@ -31,6 +31,7 @@ import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.viewModel.TotpEditViewModel
 import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
 import org.getbuddies.a2step.ui.totp.InputManualActivity
+import org.getbuddies.a2step.ui.totp.InputManualActivity.Companion.EXTRA_EDIT_KEY
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 import org.getbuddies.a2step.ui.utils.StatusBars
 
@@ -88,8 +89,9 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
                         }
 
                         override fun onModify(totp: Totp) {
-                            activity!!.startActivity(InputManualActivity::class.java) {
+                            requireActivity().startActivity<InputManualActivity> {
                                 putExtra(InputManualActivity.EXTRA_TOTP_KEY, totp)
+                                putExtra(EXTRA_EDIT_KEY,true)
                             }
                         }
 

@@ -27,7 +27,7 @@ class ProfileFragment : Fragment() {
 
     private fun initViews() {
         mBinding.profileCloudSync.setOnClickListener {
-            startActivity(SyncSettingsActivity::class.java)
+            startActivity<SyncSettingsActivity>()
         }
     }
 }

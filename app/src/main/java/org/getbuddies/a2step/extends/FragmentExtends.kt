@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
-fun Fragment.startActivity(clazz: Class<*>, putExtras: (Intent.() -> Unit)? = null) {
-    val intent = Intent(requireActivity(), clazz)
+inline fun <reified T : Activity> Fragment.startActivity(
+    noinline putExtras: (Intent.() -> Unit)? = null
+) {
+    val intent = Intent(requireActivity(), T::class.java)
     if (putExtras != null) {
         putExtras(intent)
     }

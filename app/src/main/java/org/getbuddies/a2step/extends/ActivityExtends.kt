@@ -3,8 +3,10 @@ package org.getbuddies.a2step.extends
 import android.app.Activity
 import android.content.Intent
 
-fun Activity.startActivity(clazz: Class<*>, putExtras: (Intent.() -> Unit)? = null) {
-    val intent = Intent(this, clazz)
+inline fun <reified T : Activity> Activity.startActivity(
+    noinline putExtras: (Intent.() -> Unit)? = null
+) {
+    val intent = Intent(this, T::class.java)
     if (putExtras != null) {
         putExtras(intent)
     }

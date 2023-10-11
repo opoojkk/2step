@@ -27,9 +27,6 @@
             android:name=".ui.totp.InputManualActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.totp.ScanTopVerifyActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.totp.ScanTotpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
