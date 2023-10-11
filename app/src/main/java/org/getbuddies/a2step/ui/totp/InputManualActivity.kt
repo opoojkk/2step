@@ -13,8 +13,8 @@ import org.getbuddies.a2step.totp.TotpGenerator
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextViewFocusedError
 import org.getbuddies.a2step.ui.extendz.dpToPx
-import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
+import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
 
 class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
     private val mTotpViewModel by lazy { ViewModelProvider(this)[TotpViewModel::class.java] }
@@ -57,10 +57,20 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
                 ).show()
                 return@setOnClickListener
             }
+            val digits = mBinding.digitsInputEdit.text.toString().toInt()
+            if (secret.isEmpty()) {
+                mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_check_digits)
+                return@setOnClickListener
+            }
+            val period = mBinding.periodInputEdit.text.toString().toInt()
+            if (secret.isEmpty()) {
+                mBinding.secretInputEdit.setTextViewFocusedError(R.string.error_totp_check_period)
+                return@setOnClickListener
+            }
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     val old = intent.extras?.getParcelable<Totp>(EXTRA_TOTP_KEY) ?: Totp.DEFAULT
-                    mTotpViewModel.insertOrReplace(Totp(name, account, secret), old)
+                    mTotpViewModel.insertOrReplace(Totp(name, account, secret, digits, period), old)
                 }
                 finish()
             }

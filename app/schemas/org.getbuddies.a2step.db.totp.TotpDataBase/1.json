@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "de9cef616276a13a4f085ef97f78131a",
+    "identityHash": "8bf0b740c9046f6d8b06d1faaa36e251",
     "entities": [
       {
         "tableName": "totp_db",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `account` TEXT NOT NULL, `secret` TEXT NOT NULL, PRIMARY KEY(`name`, `account`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `account` TEXT NOT NULL, `secret` TEXT NOT NULL, `digits` INTEGER NOT NULL, `period` INTEGER NOT NULL, PRIMARY KEY(`name`, `account`))",
         "fields": [
           {
             "fieldPath": "name",
@@ -25,6 +25,18 @@
             "columnName": "secret",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "digits",
+            "columnName": "digits",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "period",
+            "columnName": "period",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -41,7 +53,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de9cef616276a13a4f085ef97f78131a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8bf0b740c9046f6d8b06d1faaa36e251')"
     ]
   }
 }

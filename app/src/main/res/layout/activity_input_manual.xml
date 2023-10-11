@@ -97,4 +97,40 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/digits_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="@string/hint_totp_digits_input"
+        app:layout_constraintEnd_toEndOf="@+id/account_input"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/account_input"
+        app:layout_constraintTop_toBottomOf="@+id/account_input">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/digits_input_edit"
+            android:text="@string/label_totp_digits_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/period_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="@string/hint_totp_period_input"
+        app:layout_constraintEnd_toEndOf="@+id/digits_input"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/digits_input"
+        app:layout_constraintTop_toBottomOf="@+id/digits_input">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/period_input_edit"
+            android:text="@string/label_totp_period_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

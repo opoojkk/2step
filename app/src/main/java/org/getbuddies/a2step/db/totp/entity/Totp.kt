@@ -6,7 +6,13 @@ import androidx.room.Entity
 import org.getbuddies.a2step.db.DataBases.TOTP_DB_NAME
 
 @Entity(tableName = TOTP_DB_NAME, primaryKeys = ["name", "account"])
-data class Totp(val name: String, val account: String, val secret: String) : Parcelable {
+data class Totp(
+    val name: String,
+    val account: String,
+    val secret: String,
+    val digits: Int = 6,
+    val period: Int = 30
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
