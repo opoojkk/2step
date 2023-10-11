@@ -140,7 +140,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private fun addDefaultFragment(id: Int = R.id.home) {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fragment_container_view, tryFindFragment(id))
+            add(R.id.fragment_container_view, tryFindFragment(id))
         }
     }
 
