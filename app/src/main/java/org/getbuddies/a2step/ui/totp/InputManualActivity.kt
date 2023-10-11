@@ -69,7 +69,14 @@ class InputManualActivity : ViewBindingActivity<ActivityInputManualBinding>() {
             }
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    val extras = intent.extras!!
+                    val extras = intent.extras
+                    extras ?: let {
+                        mTotpViewModel.insertOrReplace(
+                            Totp(name, account, secret, digits, period),
+                            Totp.DEFAULT
+                        )
+                        return@withContext
+                    }
                     val edit = extras.getBoolean(EXTRA_EDIT_KEY, false)
                     if (!edit) {
                         mTotpViewModel.insertOrReplace(
