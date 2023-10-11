@@ -35,7 +35,7 @@ import org.getbuddies.a2step.ui.utils.StatusBars
 class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
     private lateinit var mBinding: FragmentBottomNavHomeBinding
     private val mTotpViewModel by lazy {
-        ViewModelProvider(this)[TotpViewModel::class.java]
+        ViewModelProvider(activity as AppCompatActivity)[TotpViewModel::class.java]
     }
     private val mTotpEditViewModel by lazy {
         ViewModelProvider(this)[TotpEditViewModel::class.java]
