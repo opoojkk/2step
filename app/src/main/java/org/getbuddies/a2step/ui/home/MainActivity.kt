@@ -52,6 +52,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     override fun initViews() {
         initBottomNavigationView()
+        StatusBars.setNavigationBarColor(window,getColor(R.color.home_action_mode_navigation_bar_color))
         addDefaultFragment()
     }
 
@@ -74,7 +75,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             }
 
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                StatusBars.setStatusBarColor(window, getColor(R.color.action_bar_color))
+                StatusBars.setStatusBarColor(window, getColor(R.color.home_action_mode_status_bar_color))
                 return true
             }
 

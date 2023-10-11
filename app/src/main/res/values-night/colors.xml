@@ -32,6 +32,7 @@
     <color name="md_theme_scrim">#000000</color>
 
     <color name="surface_on">#272430</color>
-    <color name="action_bar_color">#312f3a</color>
+    <color name="home_action_mode_status_bar_color">#312f3a</color>
+    <color name="home_action_mode_navigation_bar_color">#22202a</color>
     <color name="bg_speed_dial_expand">#8049454F</color>
 </resources>

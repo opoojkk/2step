@@ -91,7 +91,7 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
                         override fun onModify(totp: Totp) {
                             requireActivity().startActivity<InputManualActivity> {
                                 putExtra(InputManualActivity.EXTRA_TOTP_KEY, totp)
-                                putExtra(EXTRA_EDIT_KEY,true)
+                                putExtra(EXTRA_EDIT_KEY, true)
                             }
                         }
 
@@ -181,12 +181,11 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
         mBinding.searchView.addTransitionListener { _, _, newState ->
             val window = requireActivity().window
             if (newState == SearchView.TransitionState.SHOWING) {
-                StatusBars.setStatusBarAndNavigationBarColor(
-                    window,
-                    requireContext().getColor(R.color.surface_on)
+                StatusBars.setStatusBarColor(
+                    window, requireContext().getColor(R.color.surface_on)
                 )
             } else if (newState == SearchView.TransitionState.HIDDEN) {
-                StatusBars.setStatusBarAndNavigationBarColor(window, Color.TRANSPARENT)
+                StatusBars.setStatusBarColor(window, Color.TRANSPARENT)
             }
         }
     }
