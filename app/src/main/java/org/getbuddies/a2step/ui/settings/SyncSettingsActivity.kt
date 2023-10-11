@@ -12,14 +12,14 @@ import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_METHOD
 import org.getbuddies.a2step.consts.SyncSettingsMMKVs.KEY_SYNC_SETTINGS
 import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_NONE
 import org.getbuddies.a2step.consts.SyncSettingsMMKVs.VALUE_SYNC_METHOD_WEBDAV
-import org.getbuddies.a2step.databinding.ActivitySettingsBinding
+import org.getbuddies.a2step.databinding.ActivitySyncSettingsBinding
 import org.getbuddies.a2step.ui.base.ViewBindingActivity
 import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextViewFocusedError
 import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.extends.setRoundedOutlineProvider
 import org.getbuddies.a2step.ui.settings.viewModel.WebDavViewModel
 
-class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
+class SyncSettingsActivity : ViewBindingActivity<ActivitySyncSettingsBinding>() {
     private lateinit var mViewModel: WebDavViewModel
     private val mSyncMethods: Array<String> by lazy { resources.getStringArray(R.array.label_sync_methods) }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +28,8 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
         initViews()
     }
 
-    override fun getViewBinding(): ActivitySettingsBinding {
-        return ActivitySettingsBinding.inflate(layoutInflater)
+    override fun getViewBinding(): ActivitySyncSettingsBinding {
+        return ActivitySyncSettingsBinding.inflate(layoutInflater)
     }
 
     private fun initViewModel() {
