@@ -15,14 +15,14 @@ class TotpEditViewModel : ViewModel() {
     }
 
     fun add(totp: Totp) {
-        val oldValue = mSelectedTotpList.value
-        oldValue?.add(totp)
+        val oldValue = mSelectedTotpList.value!!
+        oldValue.add(totp)
         mSelectedTotpList.value = oldValue
     }
 
     fun remove(totp: Totp) {
-        val oldValue = mSelectedTotpList.value
-        oldValue?.remove(totp)
+        val oldValue = mSelectedTotpList.value!!
+        oldValue.remove(totp)
         mSelectedTotpList.value = oldValue
     }
 
