@@ -96,8 +96,8 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
                         }
 
                         override fun onDelete(totp: Totp) {
-                            mTotpViewModel.remove(totp)
                             adapter.notifyItemRemoved(adapter.items.indexOf(totp))
+                            mTotpViewModel.remove(totp)
                         }
 
                     })
@@ -209,7 +209,7 @@ class HomeFragment : Fragment(R.layout.fragment_bottom_nav_home) {
     }
 
     private fun registerTotpEditViewModelObserver() {
-        mTotpEditViewModel.observe(this) {
+        mTotpEditViewModel.observe(requireAppCompatActivity()) {
             // selected list is empty that means exit action mode
             if (it.isEmpty()) {
                 exitActionMode()
