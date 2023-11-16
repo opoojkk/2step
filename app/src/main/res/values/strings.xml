@@ -43,4 +43,7 @@
     <string name="label_totp_digits_default" translatable="false">6</string>
     <string name="label_totp_period_default" translatable="false">30</string>
     <string name="toast_totp_parse_failed">添加失败，请检查是否正确</string>
+    <string name="label_profile_migrate">迁移</string>
+    <string name="label_profile_import">导入</string>
+    <string name="label_profile_export">导出</string>
 </resources>

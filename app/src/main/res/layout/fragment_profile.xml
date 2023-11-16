@@ -8,99 +8,88 @@
     tools:context=".ui.home.fragment.ProfileFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/profile_app_icon_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/profile_introduce_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="2step"
-            android:textSize="26dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_app_icon_iv"
-            app:layout_constraintStart_toEndOf="@+id/profile_app_icon_iv"
-            app:layout_constraintTop_toTopOf="@+id/profile_app_icon_iv" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_cloud_sync"
+        android:id="@+id/sync_setting_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp">
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_cloud_sync"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#666666" />
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/sync_setting_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@string/label_settings_sync"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_app_icon_iv"
-            app:layout_constraintStart_toEndOf="@+id/profile_app_icon_iv"
-            app:layout_constraintTop_toTopOf="@+id/profile_app_icon_iv" />
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/sync_setting_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="个性化"
+            android:textColor="#5E5E5E"
+            android:textSize="13dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/profile_about"
+        android:id="@+id/about_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp">
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_profile_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#666666" />
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/about_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@string/label_settings_about"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_app_icon_iv"
-            app:layout_constraintStart_toEndOf="@+id/profile_app_icon_iv"
-            app:layout_constraintTop_toTopOf="@+id/profile_app_icon_iv" />
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/about_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="个性化"
+            android:textColor="#5E5E5E"
+            android:textSize="13dp" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/migrate_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
+
+        <TextView
+            android:id="@+id/migrate_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_profile_migrate"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/migrate_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="导入或导出您的数据"
+            android:textColor="#5E5E5E"
+            android:textSize="13dp" />
     </LinearLayout>
+
 </LinearLayout>

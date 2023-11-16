@@ -42,4 +42,7 @@
     <string name="error_totp_check_digits">Please enter the digits of the two-factor authentication</string>
     <string name="error_totp_check_period">Please enter the period of the two-factor authentication</string>
     <string name="toast_totp_parse_failed">Addition failed, please check if it\'s correct.</string>
+    <string name="label_profile_migrate">migrate</string>
+    <string name="label_profile_import">import</string>
+    <string name="label_profile_export">export</string>
 </resources>
