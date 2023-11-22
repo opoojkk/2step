@@ -34,9 +34,6 @@
     <string name="snackbar_totp_copy">Copy Successful</string>
     <string name="toast_settings_save_success">Save Successful</string>
     <string name="toast_scan_check_camera">Please check if your device supports the camera module and has granted permission</string>
-    <string name="label_search_bar_options">options</string>
-    <string name="title_bottom_nav_menu_home">home</string>
-    <string name="title_bottom_nav_menu_profile">me</string>
     <string name="hint_totp_digits_input">digits</string>
     <string name="hint_totp_period_input">period</string>
     <string name="error_totp_check_digits">Please enter the digits of the two-factor authentication</string>
@@ -45,4 +42,5 @@
     <string name="label_profile_migrate">migrate</string>
     <string name="label_profile_import">import</string>
     <string name="label_profile_export">export</string>
+    <string name="label_toolbar_settings">settings</string>
 </resources>
