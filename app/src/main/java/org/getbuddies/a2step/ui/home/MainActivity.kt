@@ -42,7 +42,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        registerTotpEditViewModelObserver()
     }
 
 
@@ -196,4 +196,17 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
 
+    private fun registerTotpEditViewModelObserver() {
+        mTotpEditViewModel.observe(this) {
+            // selected list is empty that means exit action mode
+            if (it.isEmpty()) {
+                exitActionMode()
+                return@observe
+            }
+            // do not exit action mode, just check whether action mode is null
+            if (!isActionMode()) {
+                enterActionMode()
+            }
+        }
+    }
 }
