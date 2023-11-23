@@ -52,10 +52,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     override fun initViews() {
-        StatusBars.setNavigationBarColor(
-            window,
-            getColor(R.color.home_action_mode_navigation_bar_color)
-        )
         setSupportActionBar(mBinding.materialToolbar)
         initRecyclerView()
         initDialView()
