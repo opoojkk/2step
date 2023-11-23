@@ -30,7 +30,6 @@
                 android:minHeight="?attr/actionBarSize"
                 android:paddingStart="10dp"
                 android:paddingEnd="8dp"
-                app:menu="@menu/home_toolbar_settings"
                 app:title="@string/app_name"
                 app:titleMarginEnd="8dp"
                 app:titleMarginStart="16dp" />
