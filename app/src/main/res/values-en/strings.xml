@@ -43,4 +43,5 @@
     <string name="label_profile_import">import</string>
     <string name="label_profile_export">export</string>
     <string name="label_toolbar_settings">settings</string>
+    <string name="label_settings_header_prefs">preferences</string>
 </resources>

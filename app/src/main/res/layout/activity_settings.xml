@@ -7,101 +7,50 @@
     android:orientation="vertical"
     tools:context=".ui.settings.SettingsActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="4dp"
-        android:text="个性化"
-        android:textSize="13sp" />
-
     <LinearLayout
-        android:id="@+id/sync_setting_container"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_click_ripple"
+            android:src="@drawable/icon_back" />
 
         <TextView
-            android:id="@+id/sync_setting_title"
-            android:layout_width="match_parent"
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/label_settings_sync"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
             android:textColor="#333333"
-            android:textSize="15sp" />
+            android:textSize="19dp"
+            tools:text="测试内容" />
 
         <TextView
-            android:id="@+id/sync_setting_description"
-            android:layout_width="match_parent"
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="个性化"
-            android:textColor="#5E5E5E"
-            android:textSize="13dp" />
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="@string/text_settings_sync_save"
+            android:textColor="#333333"
+            android:textSize="16dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/about_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/settings_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp">
-
-        <TextView
-            android:id="@+id/about_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_settings_about"
-            android:textColor="#333333"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/about_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="个性化"
-            android:textColor="#5E5E5E"
-            android:textSize="13dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/migrate_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp">
-
-        <TextView
-            android:id="@+id/migrate_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_profile_migrate"
-            android:textColor="#333333"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/migrate_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="导入或导出您的数据"
-            android:textColor="#5E5E5E"
-            android:textSize="13dp" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

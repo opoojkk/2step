@@ -8,4 +8,8 @@ object TextViewExtends {
         this.requestFocus()
         this.error = this.context.getString(errorRes)
     }
+
+    fun TextView.setTextRes(@StringRes resId: Int) {
+        this.text = this.context.resources.getString(resId)
+    }
 }
