@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
+        android:paddingHorizontal="8dp"
         android:paddingTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
             android:id="@+id/back_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/bg_click_ripple"
+            android:background="@drawable/bg_ripple_settings_back"
             android:src="@drawable/icon_back" />
 
         <TextView

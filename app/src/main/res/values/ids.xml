@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="status_bar_spacer" type="id" />
+    <item name="settings_sync" type="id" />
+    <item name="settings_migrate_import" type="id" />
+    <item name="settings_migrate_export" type="id" />
+    <item name="settings_about_github" type="id" />
+    <item name="settings_about_blog" type="id" />
 </resources>

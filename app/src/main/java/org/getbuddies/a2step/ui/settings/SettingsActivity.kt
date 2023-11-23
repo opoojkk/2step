@@ -11,6 +11,7 @@ import org.getbuddies.a2step.ui.extendz.TextViewExtends.setTextRes
 import org.getbuddies.a2step.ui.settings.delegate.SettingsItemDelegate
 import org.getbuddies.a2step.ui.settings.delegate.SettingsTitleDelegate
 import org.getbuddies.a2step.ui.settings.model.SettingsItem
+import org.getbuddies.a2step.ui.settings.model.SettingsItemAction
 
 class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
     private val adapter: MultiTypeAdapter by lazy { MultiTypeAdapter() }
@@ -48,26 +49,30 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
             .append(
                 SettingsItem(
                     inflateString(R.string.label_settings_sync),
-                    inflateString(R.string.label_settings_sync)
+                    inflateString(R.string.label_settings_sync),
+                    SettingsItemAction.SettingsSync
                 )
             ).append(inflateString(R.string.label_profile_migrate))
             .append(
                 SettingsItem(
                     inflateString(R.string.label_profile_migrate),
-                    inflateString(R.string.label_profile_migrate)
+                    inflateString(R.string.label_profile_migrate),
+                    SettingsItemAction.SettingsMigrateImport
                 )
             )
             .append(
                 SettingsItem(
                     inflateString(R.string.label_profile_migrate),
-                    inflateString(R.string.label_profile_migrate)
+                    inflateString(R.string.label_profile_migrate),
+                    SettingsItemAction.SettingsMigrateExport
                 )
             )
             .append(inflateString(R.string.label_settings_about))
             .append(
                 SettingsItem(
                     inflateString(R.string.label_settings_about),
-                    inflateString(R.string.label_settings_about)
+                    inflateString(R.string.label_settings_about),
+                    SettingsItemAction.SettingAboutGithub
                 )
             )
     }
