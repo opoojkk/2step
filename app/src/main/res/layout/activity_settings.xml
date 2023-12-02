@@ -13,16 +13,16 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="8dp"
-        android:paddingTop="8dp"
+        android:paddingHorizontal="@dimen/px_8"
+        android:paddingTop="@dimen/px_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/px_40"
+            android:layout_height="@dimen/px_40"
             android:background="@drawable/ripple_toolbar_back"
             android:src="@drawable/icon_back" />
 
@@ -30,10 +30,10 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="@dimen/px_6"
             android:layout_weight="1"
             android:textColor="#333333"
-            android:textSize="19dp"
+            android:textSize="@dimen/px_19"
             tools:text="测试内容" />
 
         <TextView
@@ -41,11 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
+            android:paddingHorizontal="@dimen/px_16"
+            android:paddingVertical="@dimen/px_8"
             android:text="@string/text_settings_sync_save"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="@dimen/px_16" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp"
-    android:paddingVertical="12dp">
+    android:paddingHorizontal="@dimen/px_30"
+    android:paddingVertical="@dimen/px_12">
 
     <TextView
         android:id="@+id/sync_setting_title"
@@ -18,7 +18,7 @@
         android:id="@+id/sync_setting_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/px_2"
         android:textColor="#5E5E5E"
-        android:textSize="13dp" />
+        android:textSize="@dimen/px_13" />
 </LinearLayout>
