@@ -55,23 +55,23 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
             ).append(inflateString(R.string.label_profile_migrate))
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_profile_migrate),
-                    inflateString(R.string.label_profile_migrate),
+                    inflateString(R.string.label_settings_import),
+                    inflateString(R.string.description_settings_import),
                     SettingsItemAction.SettingsMigrateImport
                 )
             )
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_profile_migrate),
-                    inflateString(R.string.label_profile_migrate),
+                    inflateString(R.string.label_settings_export),
+                    inflateString(R.string.description_settings_export),
                     SettingsItemAction.SettingsMigrateExport
                 )
             )
             .append(inflateString(R.string.label_settings_about))
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_settings_about),
-                    inflateString(R.string.label_settings_about),
+                    inflateString(R.string.label_settings_github),
+                    inflateString(R.string.description_settings_github),
                     SettingsItemAction.SettingAboutGithub
                 )
             )

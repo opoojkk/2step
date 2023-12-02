@@ -41,8 +41,12 @@
     <string name="label_totp_period_default" translatable="false">30</string>
     <string name="toast_totp_parse_failed">添加失败，请检查是否正确</string>
     <string name="label_profile_migrate">迁移</string>
-    <string name="label_profile_import">导入</string>
-    <string name="label_profile_export">导出</string>
+    <string name="label_settings_import">导入</string>
+    <string name="label_settings_export">导出</string>
     <string name="label_toolbar_settings">设置</string>
     <string name="label_settings_header_prefs">个性化</string>
+    <string name="description_settings_import">从其他TOTP软件导入</string>
+    <string name="description_settings_export">导出文件，以便导入到其他软件</string>
+    <string name="label_settings_github" translatable="false">Github</string>
+    <string name="description_settings_github" translatable="false">opoojkk</string>
 </resources>
