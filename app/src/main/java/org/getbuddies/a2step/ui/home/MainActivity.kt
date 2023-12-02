@@ -25,7 +25,7 @@ import org.getbuddies.a2step.ui.extendz.dpToPx
 import org.getbuddies.a2step.ui.home.adapter.TotpDelegate
 import org.getbuddies.a2step.ui.home.viewModel.TotpEditViewModel
 import org.getbuddies.a2step.ui.home.viewModel.TotpViewModel
-import org.getbuddies.a2step.ui.settings.SettingsActivity
+import org.getbuddies.a2step.ui.settings.activity.SettingsActivity
 import org.getbuddies.a2step.ui.totp.InputManualActivity
 import org.getbuddies.a2step.ui.totp.ScanTotpActivity
 import org.getbuddies.a2step.ui.utils.StatusBars

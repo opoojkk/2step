@@ -46,7 +46,7 @@ class SettingsItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             mBinding.root.setBackgroundResource(0)
             return
         }
-        mBinding.root.setBackgroundResource(R.drawable.bg_ripple_setttings_item)
+        mBinding.root.setBackgroundResource(R.drawable.ripple_setttings_item)
         mBinding.root.setOnClickListener {
             mAction.execute(it.context)
         }

@@ -1,4 +1,4 @@
-package org.getbuddies.a2step.ui.settings
+package org.getbuddies.a2step.ui.settings.activity
 
 import android.os.Bundle
 import android.view.View

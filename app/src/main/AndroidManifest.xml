@@ -21,10 +21,13 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name=".ui.settings.activity.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.settings.SyncSettingsActivity"
+            android:name=".ui.settings.activity.SyncSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.settings.activity.ImportActivity"
             android:exported="false" />
         <activity
             android:name=".ui.totp.InputManualActivity"

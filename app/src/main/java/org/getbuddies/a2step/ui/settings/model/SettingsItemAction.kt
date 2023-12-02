@@ -4,7 +4,8 @@ import android.content.Context
 import android.widget.Toast
 import org.getbuddies.a2step.extends.getAppCompatActivity
 import org.getbuddies.a2step.extends.startActivity
-import org.getbuddies.a2step.ui.settings.SyncSettingsActivity
+import org.getbuddies.a2step.ui.settings.activity.ImportActivity
+import org.getbuddies.a2step.ui.settings.activity.SyncSettingsActivity
 
 sealed class SettingsItemAction {
     open fun clickable(): Boolean = false
@@ -32,7 +33,7 @@ sealed class SettingsItemAction {
 
     object SettingsMigrateImport : ClickableSettingsItemAction() {
         override fun execute(context: Context) {
-            Toast.makeText(context, "not implement", Toast.LENGTH_SHORT).show()
+            context.startActivity<ImportActivity> { }
         }
 
     }

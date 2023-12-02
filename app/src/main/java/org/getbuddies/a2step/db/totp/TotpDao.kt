@@ -23,6 +23,6 @@ interface TotpDao {
     @Delete()
     fun deleteAll(vararg totp: Totp)
 
-    @Query("SELECT * FROM totp_db WHERE name LIKE '%' || :query || '%' OR account LIKE '%' || :query || '%'")
-    fun query(query: String): List<Totp>?
+    @Query("SELECT * FROM totp_db WHERE name LIKE '%' || :name || '%' OR account LIKE '%' || :account || '%'")
+    fun query(name: String,account:String): List<Totp>?
 }

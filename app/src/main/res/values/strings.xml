@@ -49,4 +49,6 @@
     <string name="description_settings_export">导出文件，以便导入到其他软件</string>
     <string name="label_settings_github" translatable="false">Github</string>
     <string name="description_settings_github" translatable="false">opoojkk</string>
+    <string name="label_import_secret">xml格式，支持数组，uri符合Google符合otpauth标准</string>
+    <string name="label_import_add">添加</string>
 </resources>

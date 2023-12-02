@@ -46,4 +46,6 @@
     <string name="label_settings_header_prefs">preferences</string>
     <string name="description_settings_import">Import from other TOTP apps</string>
     <string name="description_settings_export">Export file for importing into other apps</string>
+    <string name="label_import_secret">title</string>
+    <string name="label_import_add">add</string>
 </resources>
