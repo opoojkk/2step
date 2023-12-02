@@ -2,7 +2,7 @@ package org.getbuddies.a2step.ui.settings.model
 
 import android.content.Context
 import android.widget.Toast
-import org.getbuddies.a2step.extends.ContextExtends.getAppCompatActivity
+import org.getbuddies.a2step.extends.getAppCompatActivity
 import org.getbuddies.a2step.extends.startActivity
 import org.getbuddies.a2step.ui.settings.SyncSettingsActivity
 
