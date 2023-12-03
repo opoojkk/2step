@@ -43,6 +43,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerTotpViewModelObserver()
         registerTotpEditViewModelObserver()
     }
 
@@ -134,7 +135,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         mTotpViewModel.refreshTotpList()
     }
 
-    fun enterActionMode() {
+    private fun enterActionMode() {
         val actionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                 val inflater: MenuInflater = mode.menuInflater
@@ -164,12 +165,12 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         actionMode = startActionMode(actionModeCallback)
     }
 
-    fun exitActionMode() {
+    private fun exitActionMode() {
         actionMode?.finish()
         actionMode = null
     }
 
-    fun isActionMode(): Boolean {
+    private fun isActionMode(): Boolean {
         return actionMode != null
     }
 
@@ -192,6 +193,17 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             }
     }
 
+
+    private fun registerTotpViewModelObserver() {
+        mTotpViewModel.totpList.observe(this) {
+            updateRecyclerView(it)
+        }
+    }
+
+    private fun updateRecyclerView(totps: List<Totp>) {
+        adapter.items = totps
+        adapter.notifyDataSetChanged()
+    }
 
     private fun registerTotpEditViewModelObserver() {
         mTotpEditViewModel.observe(this) {
