@@ -28,11 +28,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
-                android:paddingStart="@dimen/px_10"
-                android:paddingEnd="@dimen/px_8"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_8"
                 app:title="@string/app_name"
-                app:titleMarginEnd="@dimen/px_8"
-                app:titleMarginStart="@dimen/px_16" />
+                app:titleMarginEnd="@dimen/dp_8"
+                app:titleMarginStart="@dimen/dp_16" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -55,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/px_10"
-        android:layout_marginBottom="@dimen/px_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
         app:sdMainFabClosedSrc="@drawable/add"
         app:sdOverlayLayout="@id/speedDialOverlayLayout" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

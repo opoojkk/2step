@@ -18,16 +18,16 @@
         app:layout_constraintVertical_bias="0.0"
         app:qrcv_animTime="1000"
         app:qrcv_borderColor="@color/md_theme_primaryContainer"
-        app:qrcv_borderSize="@dimen/px_1"
+        app:qrcv_borderSize="@dimen/dp_1"
         app:qrcv_cornerColor="@color/md_theme_primary"
-        app:qrcv_cornerLength="@dimen/px_20"
-        app:qrcv_cornerSize="@dimen/px_3"
+        app:qrcv_cornerLength="@dimen/dp_20"
+        app:qrcv_cornerSize="@dimen/dp_3"
         app:qrcv_isTipTextBelowRect="true"
         app:qrcv_maskColor="#33FFFFFF"
         app:qrcv_qrCodeTipText="将二维码放入框内，即可自动扫描"
-        app:qrcv_rectWidth="200dp"
+        app:qrcv_rectWidth="@dimen/dp_200"
         app:qrcv_scanLineColor="@color/md_theme_primary"
-        app:qrcv_scanLineSize="@dimen/px_1"
+        app:qrcv_scanLineSize="@dimen/dp_1"
         app:qrcv_verticalBias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

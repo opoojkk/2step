@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/px_8"
-        android:paddingTop="@dimen/px_8"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="@dimen/px_40"
-            android:layout_height="@dimen/px_40"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:background="@drawable/ripple_toolbar_back"
             android:src="@drawable/icon_back" />
 
@@ -29,11 +29,11 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/px_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:layout_weight="1"
             android:text="@string/label_settings_import"
             android:textColor="#333333"
-            android:textSize="@dimen/px_19"
+            android:textSize="@dimen/dp_19"
             tools:text="测试内容" />
 
         <TextView
@@ -41,19 +41,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ripple_toolbar_submit"
-            android:paddingHorizontal="@dimen/px_16"
-            android:paddingVertical="@dimen/px_8"
+            android:paddingHorizontal="@dimen/dp_16"
+            android:paddingVertical="@dimen/dp_8"
             android:text="@string/label_import_add"
             android:textColor="#333333"
-            android:textSize="@dimen/px_16" />
+            android:textSize="@dimen/dp_16" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/secret_input_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/px_12"
-        android:layout_marginTop="@dimen/px_10"
+        android:layout_marginHorizontal="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_10"
         android:hint="@string/label_import_secret"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"

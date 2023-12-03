@@ -4,5 +4,5 @@
     android:layout_height="wrap_content"
     android:ellipsize="end"
     android:maxLines="1"
-    android:padding="@dimen/px_16"
+    android:padding="@dimen/dp_16"
     android:textAppearance="?attr/textAppearanceBodyLarge" />
