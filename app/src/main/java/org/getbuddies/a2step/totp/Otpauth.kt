@@ -35,7 +35,7 @@ object Otpauth {
         }
         val addresses = path.replaceFirst(PARENTHESES, "").split(Regex(": *"))
         val name = addresses[0]
-        val account = addresses[1]
+        val account = if (addresses.size > 1) (addresses[1]) else ("")
 
         val queryMap = uri.query?.split(AND)?.associate {
             val (key, value) = it.split(EQUAL)

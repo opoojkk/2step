@@ -33,7 +33,7 @@
             android:layout_marginStart="@dimen/dp_6"
             android:layout_weight="1"
             android:textColor="#333333"
-            android:textSize="@dimen/dp_19"
+            android:textSize="@dimen/dp_18"
             tools:text="测试内容" />
 
         <TextView
