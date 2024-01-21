@@ -56,6 +56,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         setSupportActionBar(mBinding.materialToolbar)
         initRecyclerView()
         initDialView()
+        observeDBTotp()
     }
 
     private fun initRecyclerView() {
@@ -126,13 +127,8 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        queryAllTotpsFromTable()
-    }
-
-    private fun queryAllTotpsFromTable() {
-        mTotpViewModel.refreshTotpList()
+    private fun observeDBTotp() {
+        mTotpViewModel.observerDBTotp(this)
     }
 
     private fun enterActionMode() {

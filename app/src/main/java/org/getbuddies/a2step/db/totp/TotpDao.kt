@@ -4,12 +4,16 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import org.getbuddies.a2step.db.totp.entity.Totp
 
 @Dao
 interface TotpDao {
     @Query("SELECT * FROM totp_db")
     fun getAll(): List<Totp>?
+
+    @Query("SELECT * FROM totp_db")
+    fun getAllFlow(): Flow<List<Totp>>
 
     @Insert(entity = Totp::class)
     fun insert(totp: Totp)

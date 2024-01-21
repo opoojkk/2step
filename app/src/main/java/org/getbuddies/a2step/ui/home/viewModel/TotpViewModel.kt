@@ -1,8 +1,11 @@
 package org.getbuddies.a2step.ui.home.viewModel
 
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -42,12 +45,9 @@ class TotpViewModel : ViewModel() {
         totpList.value?.remove(totp)
     }
 
-    fun refreshTotpList() {
-        viewModelScope.launch {
-            val deferredTotpList = withContext(Dispatchers.IO) {
-                async { mTotpDao.getAll() }.await()
-            }
-            updateTotpList(deferredTotpList)
+    fun observerDBTotp(lifecycleOwner: LifecycleOwner) {
+        mTotpDao.getAllFlow().asLiveData().observe(lifecycleOwner) {
+            updateTotpList(it)
         }
     }
 

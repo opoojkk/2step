@@ -50,4 +50,5 @@
     <string name="label_import_add">add</string>
     <string name="toast_totp_is_empty">No TOTP data available</string>
     <string name="label_settings_libraries">open source libraries</string>
+    <string name="toast_export_success">export successful, please check the document for the JSON format file</string>
 </resources>

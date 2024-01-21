@@ -67,4 +67,5 @@
     <string name="description_settings_library_mmkv" translatable="false">MMKV is an efficient, small, easy-to-use mobile key-value storage framework used in the WeChat application.</string>
     <string name="label_settings_library_gson" translatable="false">Gson</string>
     <string name="description_settings_library_gson" translatable="false">Gson is a Java library that can be used to convert Java Objects into their JSON representation.</string>
+    <string name="toast_export_success">导出成功，请到文档下查看json格式文件</string>
 </resources>

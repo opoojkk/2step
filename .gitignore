@@ -8,3 +8,5 @@
 .cxx
 local.properties
 .idea/
+/2step_release
+/app/release
