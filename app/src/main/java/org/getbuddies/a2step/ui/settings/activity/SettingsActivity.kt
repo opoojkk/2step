@@ -45,39 +45,89 @@ class SettingsActivity : ViewBindingActivity<ActivitySettingsBinding>() {
 
     private fun generateSettingsList(): List<Any> {
         return ArrayList<Any>()
-            .append(inflateString(R.string.label_settings_header_prefs))
+            .append(R.string.label_settings_header_prefs.inflateString())
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_settings_sync),
-                    inflateString(R.string.label_settings_sync),
+                    R.string.label_settings_sync.inflateString(),
+                    R.string.label_settings_sync.inflateString(),
                     SettingsItemAction.SettingsSync
                 )
-            ).append(inflateString(R.string.label_profile_migrate))
+            ).append(R.string.label_profile_migrate.inflateString())
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_settings_import),
-                    inflateString(R.string.description_settings_import),
+                    R.string.label_settings_import.inflateString(),
+                    R.string.description_settings_import.inflateString(),
                     SettingsItemAction.SettingsMigrateImport
                 )
             )
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_settings_export),
-                    inflateString(R.string.description_settings_export),
+                    R.string.label_settings_export.inflateString(),
+                    R.string.description_settings_export.inflateString(),
                     SettingsItemAction.SettingsMigrateExport
                 )
             )
-            .append(inflateString(R.string.label_settings_about))
+            .append(R.string.label_settings_about.inflateString())
             .append(
                 SettingsItem(
-                    inflateString(R.string.label_settings_github),
-                    inflateString(R.string.description_settings_github),
-                    SettingsItemAction.SettingAboutGithub
+                    R.string.label_settings_github.inflateString(),
+                    R.string.description_settings_github.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/opoojkk")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_repo.inflateString(),
+                    R.string.description_settings_repo.inflateString(),
+                    SettingsItemAction.SettingAboutGithub(R.string.description_settings_repo.inflateString())
+                )
+            )
+            .append(R.string.label_settings_libraries.inflateString())
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_androidx.inflateString(),
+                    R.string.description_settings_library_androidx.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://developer.android.com/jetpack/androidx")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_multitype.inflateString(),
+                    R.string.description_settings_library_multitype.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/drakeet/MultiType")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_speed_dial.inflateString(),
+                    R.string.description_settings_library_speed_dial.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/leinardi/FloatingActionButtonSpeedDial")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_sardine_android.inflateString(),
+                    R.string.description_settings_library_sardine_android.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/thegrizzlylabs/sardine-android")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_mmkv.inflateString(),
+                    R.string.description_settings_library_mmkv.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/Tencent/MMKV")
+                )
+            )
+            .append(
+                SettingsItem(
+                    R.string.label_settings_library_gson.inflateString(),
+                    R.string.description_settings_library_gson.inflateString(),
+                    SettingsItemAction.SettingAboutGithub("https://github.com/google/gson")
                 )
             )
     }
 
-    private fun inflateString(resId: Int): String {
-        return resources.getString(resId)
+    private fun Int.inflateString(): String {
+        return resources.getString(this)
     }
 }

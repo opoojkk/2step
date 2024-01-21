@@ -51,4 +51,20 @@
     <string name="description_settings_github" translatable="false">opoojkk</string>
     <string name="label_import_secret">xml格式，支持数组，uri符合Google符合otpauth标准</string>
     <string name="label_import_add">添加</string>
+    <string name="toast_totp_is_empty">暂无TOTP数据</string>
+    <string name="label_settings_repo" translatable="false">Repositories</string>
+    <string name="description_settings_repo" translatable="false">https://github.com/opoojkk/2step</string>
+    <string name="label_settings_libraries">开源库</string>
+    <string name="label_settings_library_androidx" translatable="false">Androidx</string>
+    <string name="description_settings_library_androidx" translatable="false">AndroidX is a set of libraries designed to make Android app development more consistent, efficient, and maintainable.</string>
+    <string name="label_settings_library_multitype" translatable="false">multitype</string>
+    <string name="description_settings_library_multitype" translatable="false">Easier and more flexible to create multiple types for Android RecyclerView.</string>
+    <string name="label_settings_library_speed_dial" translatable="false">multitype</string>
+    <string name="description_settings_library_speed_dial" translatable="false">Android library providing an implementation of the Material Design Floating Action Button Speed Dial for both classic View and Compose.</string>
+    <string name="label_settings_library_sardine_android" translatable="false">sardine-android</string>
+    <string name="description_settings_library_sardine_android" translatable="false">A WebDAV client for Android, using OkHttp as HTTP client.</string>
+    <string name="label_settings_library_mmkv" translatable="false">MMKV</string>
+    <string name="description_settings_library_mmkv" translatable="false">MMKV is an efficient, small, easy-to-use mobile key-value storage framework used in the WeChat application.</string>
+    <string name="label_settings_library_gson" translatable="false">Gson</string>
+    <string name="description_settings_library_gson" translatable="false">Gson is a Java library that can be used to convert Java Objects into their JSON representation.</string>
 </resources>
